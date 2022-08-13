@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import environ
-import os
 import django_on_heroku
 
 env = environ.Env(
@@ -20,19 +19,21 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 
+# Take environment variables from .env file
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in os.environ
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# False if not in os.environ because of casting above
+
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
@@ -71,7 +72,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,9 +92,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'default': env.db()
-    }
+    'default': env.db(),
 }
 
 
@@ -142,9 +141,8 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'recommendations.User'
 
-CORS_ALLOW_ALL_ORIGINS = True
+#Django Rest Framework
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -155,6 +153,18 @@ REST_FRAMEWORK = {
     ),
 }
 
+
+# Custom User Model
+
+# AUTH_USER_MODEL = 'recommendations.User'
+
+
 # Heroku
+
 django_on_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+
+# Django CORS Headers
+
+CORS_ALLOW_ALL_ORIGINS = True

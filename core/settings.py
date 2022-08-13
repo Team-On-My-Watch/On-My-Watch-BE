@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'djoser',
-    'rest_framework.authtoken',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'recommendations',
 ]

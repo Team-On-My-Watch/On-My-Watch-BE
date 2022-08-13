@@ -156,7 +156,7 @@ REST_FRAMEWORK = {
 
 # Custom User Model
 
-# AUTH_USER_MODEL = 'recommendations.User'
+AUTH_USER_MODEL = 'recommendations.User'
 
 
 # Heroku

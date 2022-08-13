@@ -7,9 +7,9 @@ This repository is the API for a React web application called On My Watch. The A
 
 Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
-| URL                 | Method |    Function |
-| :------------------ | :----: | ----------: |
-| /auth/users/        |  POST  | Create User |
-| /auth/token/login/  |  POST  |       Login |
-| /auth/token/logout/ |  POST  |      Logout |
-
+| URL                  |  Method   |                                 Function |
+| :------------------- | :-------: | ---------------------------------------: |
+| /auth/users/         |   POST    |                              Create User |
+| /auth/token/login/   |   POST    |                                    Login |
+| /auth/token/logout/  |   POST    |                                   Logout |
+| /api/recommendation/ | GET, POST | View Recommendation, Make Recommendation |

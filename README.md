@@ -5,7 +5,7 @@ This repository is the API for a React web application called On My Watch. The A
 
 ## API Endpoints
 
-Base URL: [https://onmywatch.herokuapp.com] (https://onmywatch.herokuapp.com)
+Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
-|URL        |Method      |Function|
-|:----------|:----------:|----------:|
+| URL  | Method | Function |
+| :--- | :----: | -------: |

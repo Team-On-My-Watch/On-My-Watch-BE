@@ -13,6 +13,8 @@ gunicorn = "*"
 djoser = "*"
 django-cors-headers = "*"
 psycopg2-binary = "*"
+environ = "*"
+shell = "*"
 
 [dev-packages]
 

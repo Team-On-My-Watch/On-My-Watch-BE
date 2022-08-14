@@ -26,7 +26,9 @@ class RecommendationSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    recommendations = RecommendationSerializer(many=True, read_only=True)
 
     class Meta:
         model = Comment
-        fields = ('id', 'user', 'recommendation', 'comment')
+        fields = ('id', 'user', 'recommendation', 'comment', 'created_at')

@@ -45,7 +45,7 @@ class FollowUserView(generics.ListCreateAPIView):
         if user_following.id is not self.request.user.id:
             serializer.save(user=self.request.user.username, following=user_following.username)
         else:
-            return 
+            return
 
 
 class AddWatchListCardView(APIView):

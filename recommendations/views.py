@@ -53,14 +53,14 @@ class AddWatchListCardView(APIView):
     def post(self, request, **kwargs):
         user = self.request.user
         recommendation = get_object_or_404(Recommendation, pk=self.kwargs['pk'])
-        user.favorites.add(recommendation)
+        user.saves.add(recommendation)
         serializer = RecommendationSerializer(recommendation, context={'request': request})
         return Response(serializer.data, status=201)
 
     def delete(self, request, **kwargs):
         user = self.request.user
         recommendation = get_object_or_404(Recommendation, pk=self.kwargs['pk'])
-        user.favorites.remove(recommendation)
+        user.saves.remove(recommendation)
         serializer = RecommendationSerializer(recommendation, context={'request': request})
         return Response(serializer.data, status=204)
 
@@ -69,7 +69,7 @@ class UserWatchListView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
 
     def get_queryset(self):
-        return self.request.user.favorites.all()
+        return self.request.user.saves.all()
 
 
 # add tags/view all tags

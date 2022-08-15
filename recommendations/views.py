@@ -54,3 +54,10 @@ class AddWatchListCardView(APIView):
         user.favorites.remove(recommendation)
         serializer = RecommendationSerializer(recommendation, context={'request': request})
         return Response(serializer.data, status=204)
+
+
+class UserWatchListView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+
+    def get_queryset(self):
+        return self.request.user.favorites.all()

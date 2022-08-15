@@ -76,3 +76,9 @@ class UserWatchListView(generics.ListAPIView):
 class AddTagListView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+# delete tags
+class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

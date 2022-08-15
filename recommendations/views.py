@@ -47,3 +47,10 @@ class AddWatchListCardView(APIView):
         user.favorites.add(recommendation)
         serializer = RecommendationSerializer(recommendation, context={'request': request})
         return Response(serializer.data, status=201)
+
+    def delete(self, request, **kwargs):
+        user = self.request.user
+        recommendation = get_object_or_404(Recommendation, pk=self.kwargs['pk'])
+        user.favorites.remove(recommendation)
+        serializer = RecommendationSerializer(recommendation, context={'request': request})
+        return Response(serializer.data, status=204)

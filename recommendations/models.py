@@ -9,6 +9,7 @@ class User(AbstractUser):
     def __repr__(self):
         return f'<User username={self.username} pk={self.pk}>'
 
+
 class BaseModel(models.Model):
     created_at = models.DateTimeField(db_index=True, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -45,3 +46,16 @@ class Comment(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE, related_name='comments')
     comment = models.TextField(max_length=750)
+
+
+class Follow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'following'], name='unique_following')
+        ]
+
+
+

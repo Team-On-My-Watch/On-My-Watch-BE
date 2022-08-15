@@ -14,3 +14,5 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 | /auth/token/logout/             |   POST    |                                     Logout |
 | /api/recommendation/            | GET, POST | View Recommendation, Create Recommendation |
 | /api/recommendation/pk/comment/ | GET, POST |              View Comments, Create Comment |
+| /api/user/favorite/recommendations/ | GET   |          View User Favorite Recommendation |
+| /api/recommendation/<int:pk>/favorties/ | POST, DELETE | Add Favorites, Remove Favorites |

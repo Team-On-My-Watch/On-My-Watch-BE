@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from recommendations.models import User, Tag, Recommendation, Comment
+from recommendations.models import User, Tag, Recommendation, Comment, Follow
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,3 +32,13 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'user', 'recommendation', 'comment', 'created_at')
+
+
+# follow and unfollow feature
+class FollowSerializer(serializers.ModelSerializer):
+    following = serializers.ReadOnlyField(source='following.username')
+    user_following = UserSerializer(source='following', read_only=True)
+
+    class Meta:
+        model = Follow
+        fields = ('id', 'user_following', 'following')

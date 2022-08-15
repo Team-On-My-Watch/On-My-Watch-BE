@@ -27,4 +27,6 @@ urlpatterns = [
     # Recommendation Views
     path('api/recommendation/', views.RecommendationAddListView.as_view()),
     path('api/recommendation/pk/comment/', views.CommentAddView.as_view()),
+    # Follow Views
+    path('api/users/follow/',views.FollowUserView.as_view()),
 ]

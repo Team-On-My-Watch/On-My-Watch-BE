@@ -26,7 +26,10 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     # Recommendation Views
     path('api/recommendation/', views.RecommendationAddListView.as_view()),
-    path('api/recommendation/pk/comment/', views.CommentAddView.as_view()),
+    path('api/recommendation/<int:pk>/comment/', views.CommentAddView.as_view()),
     # Follow Views
-    path('api/users/follow/',views.FollowUserView.as_view()),
+    path('api/users/follow/', views.FollowUserView.as_view()),
+    # Watch list
+    path('api/user/favorite/recommendations/', views.UserWatchListView.as_view()),
+    path('api/recommendation/<int:pk>/favorties/', views.AddWatchListCardView.as_view()),
 ]

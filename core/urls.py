@@ -33,4 +33,7 @@ urlpatterns = [
     # Watch list
     path('api/user/favorite/recommendations/', views.UserWatchListView.as_view()),
     path('api/recommendation/<int:pk>/favorites/', views.AddWatchListCardView.as_view()),
+    # Tags
+    path('api/tags/', views.AddTagListView.as_view()),
+    path('api/tag/<int:pk>/delete/', views.TagDestroyView.as_view()),
 ]

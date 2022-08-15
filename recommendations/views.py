@@ -17,7 +17,7 @@ class CommentAddView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return Comment.objects.filter(recommendation_id=self.kwargs["pk"].order_by('-created_at'))
+        return Comment.objects.filter(recommendation_id=self.kwargs["pk"])
 
     def perform_create(self, serializer):
         recommendation = get_object_or_404(Recommendation, pk=self.kwargs.get('pk'))

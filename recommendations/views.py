@@ -3,8 +3,8 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from recommendations.permissions import IsOwner
-from recommendations.models import Recommendation, Comment, Follow, User
-from .serializers import CommentSerializer, FollowSerializer, RecommendationSerializer
+from recommendations.models import Recommendation, Comment, Follow, User, Tag
+from .serializers import CommentSerializer, FollowSerializer, RecommendationSerializer, TagSerializer
 
 
 # view Recommendations/ add Recommendations
@@ -70,3 +70,9 @@ class UserWatchListView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.favorites.all()
+
+
+# add tags/view all tags
+class AddTagListView(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

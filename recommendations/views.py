@@ -2,16 +2,25 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from recommendations.permissions import IsOwner
 from recommendations.models import Recommendation, Comment, Follow, User
 from .serializers import CommentSerializer, FollowSerializer, RecommendationSerializer
 
 
+# view Recommendations/ add Recommendations
 class RecommendationAddListView(generics.ListCreateAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+# delete Recommendation
+class RecommendationDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Recommendation.objects.all()
+    serializer_class = RecommendationSerializer
+    permission_classes = [IsOwner]
 
 
 # get recommendation and post comment
@@ -36,7 +45,7 @@ class FollowUserView(generics.ListCreateAPIView):
         if user_following.id is not self.request.user.id:
             serializer.save(user=self.request.user.username, following=user_following.username)
         else:
-            return 
+            return
 
 
 class AddWatchListCardView(APIView):

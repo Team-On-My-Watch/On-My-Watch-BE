@@ -30,5 +30,6 @@ urlpatterns = [
     # Follow Views
     path('api/users/follow/', views.FollowUserView.as_view()),
     # Watch list
-    path('api/recommendation/<int:pk>/favorties/', views.AddWatchListCardView.as_view())
+    path('api/user/favorite/recommendations/', views.UserWatchListView.as_view()),
+    path('api/recommendation/<int:pk>/favorties/', views.AddWatchListCardView.as_view()),
 ]

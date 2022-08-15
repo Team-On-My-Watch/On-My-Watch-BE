@@ -7,12 +7,13 @@ This repository is the API for a React web application called On My Watch. The A
 
 Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
-| URL                             |  Method   |                                   Function |
-| :------------------------------ | :-------: | -----------------------------------------: |
-| /auth/users/                    |   POST    |                                Create User |
-| /auth/token/login/              |   POST    |                                      Login |
-| /auth/token/logout/             |   POST    |                                     Logout |
-| /api/recommendation/            | GET, POST | View Recommendation, Create Recommendation |
-| /api/recommendation/pk/comment/ | GET, POST |              View Comments, Create Comment |
-| /api/user/favorite/recommendations/ | GET   |          View User Favorite Recommendation |
-| /api/recommendation/<int:pk>/favorties/ | POST, DELETE | Add Favorites, Remove Favorites |
+| URL                                     |    Method    |                                   Function |
+| :-------------------------------------- | :----------: | -----------------------------------------: |
+| /auth/users/                            |     POST     |                                Create User |
+| /auth/token/login/                      |     POST     |                                      Login |
+| /auth/token/logout/                     |     POST     |                                     Logout |
+| /api/recommendation/                    |  GET, POST   | View Recommendation, Create Recommendation |
+| /api/recommendation/<int:pk>/comment/   |  GET, POST   |              View Comments, Create Comment |
+| /api/users/follow/                      |     POST     |                                Follow User |
+| /api/user/favorite/recommendations/     |     GET      |          View User Favorite Recommendation |
+| /api/recommendation/<int:pk>/favorties/ | POST, DELETE |            Add Favorites, Remove Favorites |

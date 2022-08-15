@@ -16,4 +16,5 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 | /api/recommendation/<int:pk>/comment/   |  GET, POST   |              View Comments, Create Comment |
 | /api/users/follow/                      |     POST     |                                Follow User |
 | /api/user/favorite/recommendations/     |     GET      |          View User Favorite Recommendation |
-| /api/recommendation/<int:pk>/favorties/ | POST, DELETE |            Add Favorites, Remove Favorites |
+| /api/recommendation/<int:pk>/favorites/ | POST, DELETE |            Add Favorites, Remove Favorites |
+| /api/recommendation/<int:pk>/delete/     |    DELETE    |                     Delete Recommendations |

@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from recommendations.models import Recommendation, Comment, Follow, User
 from .serializers import CommentSerializer, FollowSerializer, RecommendationSerializer
 
@@ -37,3 +39,11 @@ class FollowUserView(generics.ListCreateAPIView):
             return 
 
 
+class AddWatchListCardView(APIView):
+
+    def post(self, request, **kwargs):
+        user = self.request.user
+        recommendation = get_object_or_404(Recommendation, pk=self.kwargs['pk'])
+        user.favorites.add(recommendation)
+        serializer = RecommendationSerializer(recommendation, context={'request': request})
+        return Response(serializer.data, status=201)

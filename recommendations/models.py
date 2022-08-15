@@ -31,7 +31,7 @@ class Recommendation(BaseModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recommendations')
     reason = models.TextField(max_length=750)
-    favorited_by = models.ManyToManyField(User, related_name='favorites', blank=True)
+    saved_by = models.ManyToManyField(User, related_name='saves', blank=True)
     imdbid = models.TextField(max_length=100)
     title = models.CharField(max_length=125)
     medium = models.CharField(max_length=3, choices=STATUS_CHOICES)

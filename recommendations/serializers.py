@@ -3,9 +3,17 @@ from recommendations.models import User, Tag, Recommendation, Comment, Follow
 
 
 class UserSerializer(serializers.ModelSerializer):
+    followers = serializers.SerializerMethodField()
+
+    def get_followers(self, obj):
+        follow_objects = Follow.objects.filter(followee=obj)
+        followers = [follow_object.follower.username for follow_object in follow_objects]
+        return followers
+
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'followers')
+
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -22,7 +30,7 @@ class RecommendationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recommendation
-        fields = ('id', 'user', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster')
+        fields = ('id', 'user', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -33,12 +41,3 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('id', 'user', 'recommendation', 'comment', 'created_at')
 
-
-# follow and unfollow feature
-class FollowSerializer(serializers.ModelSerializer):
-    following = serializers.ReadOnlyField(source='following.username')
-    user_following = UserSerializer(source='following', read_only=True)
-
-    class Meta:
-        model = Follow
-        fields = ('id', 'user_following', 'following')

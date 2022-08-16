@@ -4,8 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from recommendations.permissions import IsOwner
 from recommendations.models import Recommendation, Comment, Follow, User, Tag
-from .serializers import CommentSerializer, FollowSerializer, RecommendationSerializer, TagSerializer
-
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer
 
 # view Recommendations/ add Recommendations
 class RecommendationAddListView(generics.ListCreateAPIView):
@@ -41,17 +40,10 @@ class CommentAddView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user, recommendation=recommendation)
 
 
-# allows for unique follow object/relationship
-class FollowUserView(generics.ListCreateAPIView):
-    queryset = Follow.objects.all()
-    serializer_class = FollowSerializer
-
-    def perform_create(self, serializer):
-        user_following = User.objects.get(username=self.request.data['following'])
-        if user_following.id is not self.request.user.id:
-            serializer.save(user=self.request.user.username, following=user_following.username)
-        else:
-            return
+# get list of followers
+class UserDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer 
 
 
 class AddWatchListCardView(APIView):

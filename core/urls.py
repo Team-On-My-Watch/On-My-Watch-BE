@@ -26,6 +26,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     # Recommendation Views
     path('api/recommendation/', views.RecommendationAddListView.as_view()),
+    path('api/recommendation/<int:pk>/', views.RecommendationDetailView.as_view()),
     path('api/recommendation/<int:pk>/comment/', views.CommentAddView.as_view()),
     path('api/recommendation/<int:pk>/delete/', views.RecommendationDestroyView.as_view()),
     # Follow Views

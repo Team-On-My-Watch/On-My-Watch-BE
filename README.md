@@ -20,3 +20,4 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 | /api/recommendation/<int:pk>/delete/    |    DELETE    |                     Delete Recommendations |
 | /api/tags/                              |  GET, POST   |                      View Tags, Create Tag |
 | /api/tag/<int:pk>/delete/               |    DELETE    |                                Delete Tags |
+| /api/recommendation/<int:pk>/           |     GET      |                     Recommendation Details |

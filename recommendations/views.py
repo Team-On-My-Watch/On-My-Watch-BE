@@ -16,6 +16,12 @@ class RecommendationAddListView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
+# Recommendation detail
+class RecommendationDetailView(generics.RetrieveAPIView):
+    queryset = Recommendation.objects.all()
+    serializer_class = RecommendationSerializer
+
+
 # delete Recommendation
 class RecommendationDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recommendation.objects.all()

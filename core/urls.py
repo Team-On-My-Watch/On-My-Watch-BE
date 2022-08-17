@@ -31,11 +31,13 @@ urlpatterns = [
     path('api/recommendation/<int:pk>/delete/', views.RecommendationDestroyView.as_view()),
     # Follow Views
     path('api/user/<int:pk>/followers/', views.UserDetailView.as_view()),
+    path('api/user/<int:pk>/following/', views.UserFollowingDetailView.as_view()),
     # Watch list
     path('api/user/watchlist/recommendations/', views.UserWatchListView.as_view()),
     path('api/recommendation/<int:pk>/watchlist/', views.AddWatchListCardView.as_view()),
     # Tags
     path('api/tags/', views.AddTagListView.as_view()),
     path('api/tag/<int:pk>/delete/', views.TagDestroyView.as_view()),
-    # Search
+    # Users
+    path('api/user/<int:pk>/recommendations/', views.UserRecommendationListView.as_view()),
 ]

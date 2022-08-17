@@ -6,7 +6,7 @@ from rest_framework import filters
 from recommendations.permissions import IsOwner
 from django_filters.rest_framework import DjangoFilterBackend
 from recommendations.models import Recommendation, Comment, Follow, User, Tag
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer, FollowingSerializer
 
 
 # view Recommendations/ add Recommendations
@@ -51,6 +51,12 @@ class CommentAddView(generics.ListCreateAPIView):
 class UserDetailView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer 
+
+
+# get list of users you are following
+class UserFollowingDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = FollowingSerializer
 
 
 class AddWatchListCardView(APIView):

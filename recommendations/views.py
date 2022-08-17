@@ -3,8 +3,8 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from recommendations.permissions import IsOwner
-from recommendations.models import Recommendation, Comment, Follow, User, Tag
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer
+from recommendations.models import Recommendation, Comment, User, Tag
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer, FollowingSerializer
 
 # view Recommendations/ add Recommendations
 class RecommendationAddListView(generics.ListCreateAPIView):
@@ -44,6 +44,12 @@ class CommentAddView(generics.ListCreateAPIView):
 class UserDetailView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer 
+
+
+# get list of users you are following
+class UserFollowingDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = FollowingSerializer 
 
 
 class AddWatchListCardView(APIView):

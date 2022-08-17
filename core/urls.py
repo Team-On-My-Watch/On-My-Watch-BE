@@ -37,4 +37,6 @@ urlpatterns = [
     # Tags
     path('api/tags/', views.AddTagListView.as_view()),
     path('api/tag/<int:pk>/delete/', views.TagDestroyView.as_view()),
+    # Users
+    path('api/user/<int:pk>/recommendations/', views.UserRecommendationListView.as_view()),
 ]

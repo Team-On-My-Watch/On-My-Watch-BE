@@ -80,3 +80,15 @@ class AddTagListView(generics.ListCreateAPIView):
 class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+# All user recommendations
+class UserRecommendationListView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+
+    def get_queryset(self):
+        return Recommendation.objects.filter(user_id=self.kwargs["pk"])
+
+    def perform_create(self, serializer):
+        user = get_object_or_404(User, pk=self.kwargs.get("pk"))
+        serializer.save(user=user)

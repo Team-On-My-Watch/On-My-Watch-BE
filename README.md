@@ -21,4 +21,4 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |                 | /api/recommendation/<int:pk>/watchlist/ | POST, DELETE |            Add Favorites, Remove Favorites |
 |      Tags       | /api/tags/                              |  GET, POST   |                      View Tags, Create Tag |
 |                 | /api/tag/<int:pk>/delete/               |    DELETE    |                                Delete Tags |
-
+|      Users      | api/user/<int:pk>/recommendations/      |     GET      |             View All Users Recommendations |

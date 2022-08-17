@@ -2,14 +2,21 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import filters
 from recommendations.permissions import IsOwner
+from django_filters.rest_framework import DjangoFilterBackend
 from recommendations.models import Recommendation, Comment, Follow, User, Tag
 from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer
+
 
 # view Recommendations/ add Recommendations
 class RecommendationAddListView(generics.ListCreateAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+
+    filterset_fields = ['id', 'tag', 'title', 'imdbid']
+    search_fields = ['id', 'tag', 'title', 'imdbid']
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -80,3 +87,24 @@ class AddTagListView(generics.ListCreateAPIView):
 class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+# All user recommendations
+class UserRecommendationListView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+
+    def get_queryset(self):
+        return Recommendation.objects.filter(user_id=self.kwargs["pk"])
+
+    def perform_create(self, serializer):
+        user = get_object_or_404(User, pk=self.kwargs.get("pk"))
+        serializer.save(user=user)
+
+
+# Search Recommendation
+class SearchRecommendationView(generics.ListCreateAPIView):
+    serializer_class = RecommendationSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    queryset = Recommendation.objects.all()
+
+    filterset_fields = ['id']

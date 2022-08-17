@@ -17,6 +17,7 @@ environ = "*"
 shell = "*"
 pillow = "*"
 heroku = "*"
+django-filter = "*"
 
 [dev-packages]
 flake8 = "*"

@@ -15,8 +15,8 @@ class RecommendationAddListView(generics.ListCreateAPIView):
     serializer_class = RecommendationSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
 
-    filterset_fields = ['id', 'tag', 'title', 'imdbid']
-    search_fields = ['id', 'tag', 'title', 'imdbid']
+    filterset_fields = ['id', 'tag', 'title', 'imdbid', 'medium']
+    search_fields = ['id', 'tag', 'title', 'imdbid', 'medium']
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

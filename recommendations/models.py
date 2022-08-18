@@ -1,3 +1,5 @@
+from operator import mod
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -23,23 +25,20 @@ class Tag(BaseModel):
 
 
 class Recommendation(BaseModel):
-    TV_SHOW = 'TVS'
-    MOVIE = 'M'
-    STATUS_CHOICES = [
-        (TV_SHOW, 'TV Show'), (MOVIE, 'Movie'),
-    ]
-
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recommendations')
     reason = models.TextField(max_length=750)
     saved_by = models.ManyToManyField(User, related_name='saves', blank=True)
     imdbid = models.TextField(max_length=100)
     title = models.CharField(max_length=125)
-    medium = models.CharField(max_length=3, choices=STATUS_CHOICES)
+    medium = models.CharField(max_length=255)
     genre = models.CharField(max_length=200)
     tag = models.ManyToManyField(Tag, related_name='user_tags')
     description = models.TextField(max_length=1000)
     streaming_service = models.CharField(max_length=50, null=True, blank=True)
-    poster = models.ImageField(max_length=100, null=True)
+    poster = models.URLField(max_length=100, null=True)
+    related_shows = models.CharField(max_length=255, null=True)
+    keywords = models.CharField(max_length=255, null=True)
+    actors = models.CharField(max_length=255, null=True)
 
 
 class Comment(BaseModel):

@@ -67,17 +67,21 @@ class FollowingView(generics.ListAPIView):
 
 
 #follow a user
-class FollowCreateView(generics.ListCreateAPIView):
+class FollowCreateView(generics.CreateAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        user_following = User.objects.get(pk=self.request.data['followee'])
-        if user_following.id is not self.request.user.id:
-            serializer.save(user=self.request.username, followee=user_following.username)
+        # establishes variable for filtered queryset
+        unique_query = self.queryset.filter(followee_id=self.request.data['followee'], follower_id=self.request.user)
+        # conditional for if the unique query does not exist
+        if len(unique_query) == 0:
+            # when a Follow object is saved,the user is set as the user that made the request
+            serializer.save(follower=self.request.user, followee_id=self.request.data['followee'])
+            return
         else:
-            return Response({'message': 'Users cannot follow themselves!'})
+            return Response({"message": "You already follow this user."})
 
 
 #unfollow

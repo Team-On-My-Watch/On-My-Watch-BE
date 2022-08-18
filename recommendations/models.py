@@ -48,8 +48,9 @@ class Comment(BaseModel):
 
 
 class Follow(models.Model):
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows_user_initiated')
-    followee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows_user_received')
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows_user_initiated', null=True)
+    followee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows_user_received', null=True)
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['follower', 'followee'], name='follower-followed')

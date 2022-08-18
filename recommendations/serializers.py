@@ -47,3 +47,13 @@ class FollowingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follow
         fields= ('followee',)
+
+
+class FollowUnfollowSerializer(serializers.ModelSerializer):
+    followee = serializers.PrimaryKeyRelatedField(read_only=True)
+    follower = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = Follow
+        fields = ('follower', 'followee',)
+

@@ -30,6 +30,8 @@ urlpatterns = [
     path('api/recommendation/<int:pk>/comment/', views.CommentAddView.as_view()),
     path('api/recommendation/<int:pk>/delete/', views.RecommendationDestroyView.as_view()),
     # Follow Views
+    path('api/follows/', views.FollowCreateView.as_view()),
+    path('api/follow/<int:pk>/delete/', views.FollowRemoveView.as_view()),
     path('api/myfollowers/', views.FollowerView.as_view()),
     path('api/following/', views.FollowingView.as_view()),
     # Watch list

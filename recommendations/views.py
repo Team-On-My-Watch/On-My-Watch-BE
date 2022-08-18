@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from recommendations import permissions
 from recommendations.permissions import IsOwner
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
 
 
 # --------------------------------------------RECOMMENDATIONS-------------------------------------
@@ -46,9 +46,7 @@ class CommentAddView(generics.ListCreateAPIView):
 
 
 # -----------------------------------------------FOLLOWERS------------------------------------------
-
-# option 2
-
+#list of followers
 class FollowerView(generics.ListAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
@@ -57,6 +55,8 @@ class FollowerView(generics.ListAPIView):
     def get_queryset(self):
         return self.request.user.follows_user_received.all()
 
+
+#list of users you are following
 class FollowingView(generics.ListAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowingSerializer
@@ -64,6 +64,31 @@ class FollowingView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.follows_user_initiated.all()
+
+
+#follow a user
+class FollowCreateView(generics.CreateAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowUnfollowSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # establishes variable for filtered queryset
+        unique_query = self.queryset.filter(followee_id=self.request.data['followee'], follower_id=self.request.user)
+        # conditional for if the unique query does not exist
+        if len(unique_query) == 0:
+            # when a Follow object is saved,the user is set as the user that made the request
+            serializer.save(follower=self.request.user, followee_id=self.request.data['followee'])
+            return
+        else:
+            return Response({"message": "You already follow this user."})
+
+
+#unfollow
+class FollowRemoveView(generics.DestroyAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowUnfollowSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # -----------------------------------------------WATCH LIST------------------------------------------

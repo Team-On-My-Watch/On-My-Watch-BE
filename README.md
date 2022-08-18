@@ -16,10 +16,11 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |                 | /api/recommendation/<int:pk>/           |     GET      |                     Recommendation Details |
 |                 | /api/recommendation/<int:pk>/delete/    |    DELETE    |                     Delete Recommendations |
 |    Comments     | /api/recommendation/<int:pk>/comment/   |  GET, POST   |              View Comments, Create Comment |
-|    Followers    | api/myfollowers/                        |     POST     |                          List of Followers |
-|                 | api/following/                          |     POST     |            List of Users You Are Following |
+|    Followers    | /api/follows/                           |     POST     |                              Follow a user |
+|                 | /api/myfollowers/                       |     GET      |                          List of Followers |
+|                 | /api/following/                         |     GET      |            List of Users You Are Following |
 |   Watch List    | /api/user/watchlist/recommendations/    |     GET      |          View User Favorite Recommendation |
 |                 | /api/recommendation/<int:pk>/watchlist/ | POST, DELETE |            Add Favorites, Remove Favorites |
 |      Tags       | /api/tags/                              |  GET, POST   |                      View Tags, Create Tag |
 |                 | /api/tag/<int:pk>/delete/               |    DELETE    |                                Delete Tags |
-|      Users      | api/user/<int:pk>/recommendations/      |     GET      |             View All Users Recommendations |
+|      Users      | /api/user/<int:pk>/recommendations/     |     GET      |             View All Users Recommendations |

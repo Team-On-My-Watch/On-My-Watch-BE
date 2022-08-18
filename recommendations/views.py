@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from recommendations import permissions
 from recommendations.permissions import IsOwner
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
 
 
 # --------------------------------------------RECOMMENDATIONS-------------------------------------
@@ -46,9 +46,7 @@ class CommentAddView(generics.ListCreateAPIView):
 
 
 # -----------------------------------------------FOLLOWERS------------------------------------------
-
-# option 2
-
+#list of followers
 class FollowerView(generics.ListAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
@@ -57,6 +55,8 @@ class FollowerView(generics.ListAPIView):
     def get_queryset(self):
         return self.request.user.follows_user_received.all()
 
+
+#list of users you are following
 class FollowingView(generics.ListAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowingSerializer
@@ -64,6 +64,27 @@ class FollowingView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.follows_user_initiated.all()
+
+
+#follow a user
+class FollowCreateView(generics.ListCreateAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowUnfollowSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        user_following = User.objects.get(pk=self.request.data['followee'])
+        if user_following.id is not self.request.user.id:
+            serializer.save(user=self.request.username, followee=user_following.username)
+        else:
+            return Response({'message': 'Users cannot follow themselves!'})
+
+
+#unfollow
+class FollowRemoveView(generics.DestroyAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowUnfollowSerializer
+    permission_classes = [IsAuthenticated]
 
 
 # -----------------------------------------------WATCH LIST------------------------------------------

@@ -1,11 +1,15 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from recommendations import permissions
 from recommendations.permissions import IsOwner
-from recommendations.models import Recommendation, Comment, User, Tag
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer, FollowingSerializer
+from recommendations.models import Recommendation, Comment, User, Tag, Follow
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer
 
+
+# --------------------------------------------RECOMMENDATIONS-------------------------------------
 # view Recommendations/ add Recommendations
 class RecommendationAddListView(generics.ListCreateAPIView):
     queryset = Recommendation.objects.all()
@@ -28,6 +32,7 @@ class RecommendationDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwner]
 
 
+# -----------------------------------------------COMMENTS------------------------------------------
 # get recommendation and post comment
 class CommentAddView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
@@ -40,18 +45,28 @@ class CommentAddView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user, recommendation=recommendation)
 
 
-# get list of followers
-class UserDetailView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer 
+# -----------------------------------------------FOLLOWERS------------------------------------------
+
+# option 2
+
+class FollowerView(generics.ListAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.follows_user_received.all()
+
+class FollowingView(generics.ListAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.follows_user_initiated.all()
 
 
-# get list of users you are following
-class UserFollowingDetailView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = FollowingSerializer 
-
-
+# -----------------------------------------------WATCH LIST------------------------------------------
 class AddWatchListCardView(APIView):
 
     def post(self, request, **kwargs):
@@ -75,7 +90,7 @@ class UserWatchListView(generics.ListAPIView):
     def get_queryset(self):
         return self.request.user.saves.all()
 
-
+# --------------------------------------------------TAGS------------------------------------------
 # add tags/view all tags
 class AddTagListView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
@@ -87,6 +102,7 @@ class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+# --------------------------------------------------USERS------------------------------------------
 
 # All user recommendations
 class UserRecommendationListView(generics.ListAPIView):

@@ -20,10 +20,11 @@ class RecommendationSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(slug_field="username", read_only=True)
     tag = serializers.SlugRelatedField(queryset=Tag.objects.all(), many=True, slug_field="tags")
     saved_by = serializers.SlugRelatedField(queryset=User.objects.all(), many=True, slug_field="username")
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Recommendation
-        fields = ('id', 'user', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at')
+        fields = ('id', 'user', 'user_id', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -52,8 +53,10 @@ class FollowingSerializer(serializers.ModelSerializer):
 class FollowUnfollowSerializer(serializers.ModelSerializer):
     followee = serializers.PrimaryKeyRelatedField(read_only=True)
     follower = serializers.PrimaryKeyRelatedField(read_only=True)
+    followee_name = serializers.ReadOnlyField(source='user.username')
+
 
     class Meta:
         model = Follow
-        fields = ('follower', 'followee',)
+        fields = ('follower', 'followee', 'followee_name',)
 

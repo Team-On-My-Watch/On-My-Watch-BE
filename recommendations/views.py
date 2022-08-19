@@ -1,11 +1,15 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from recommendations import permissions
 from recommendations.permissions import IsOwner
-from recommendations.models import Recommendation, Comment, User, Tag
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, UserSerializer, FollowingSerializer
+from recommendations.models import Recommendation, Comment, User, Tag, Follow
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
 
+
+# --------------------------------------------RECOMMENDATIONS-------------------------------------
 # view Recommendations/ add Recommendations
 class RecommendationAddListView(generics.ListCreateAPIView):
     queryset = Recommendation.objects.all()
@@ -28,6 +32,7 @@ class RecommendationDestroyView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwner]
 
 
+# -----------------------------------------------COMMENTS------------------------------------------
 # get recommendation and post comment
 class CommentAddView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
@@ -40,18 +45,53 @@ class CommentAddView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user, recommendation=recommendation)
 
 
-# get list of followers
-class UserDetailView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer 
+# -----------------------------------------------FOLLOWERS------------------------------------------
+#list of followers
+class FollowerView(generics.ListAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.follows_user_received.all()
 
 
-# get list of users you are following
-class UserFollowingDetailView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = FollowingSerializer 
+#list of users you are following
+class FollowingView(generics.ListAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.request.user.follows_user_initiated.all()
 
 
+#follow a user
+class FollowCreateView(generics.CreateAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowUnfollowSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        # establishes variable for filtered queryset
+        unique_query = self.queryset.filter(followee_id=self.request.data['followee'], follower_id=self.request.user)
+        # conditional for if the unique query does not exist
+        if len(unique_query) == 0:
+            # when a Follow object is saved,the user is set as the user that made the request
+            serializer.save(follower=self.request.user, followee_id=self.request.data['followee'])
+            return
+        else:
+            return Response({"message": "You already follow this user."})
+
+
+#unfollow
+class FollowRemoveView(generics.DestroyAPIView):
+    queryset = Follow.objects.all()
+    serializer_class = FollowUnfollowSerializer
+    permission_classes = [IsAuthenticated]
+
+
+# -----------------------------------------------WATCH LIST------------------------------------------
 class AddWatchListCardView(APIView):
 
     def post(self, request, **kwargs):
@@ -75,7 +115,7 @@ class UserWatchListView(generics.ListAPIView):
     def get_queryset(self):
         return self.request.user.saves.all()
 
-
+# --------------------------------------------------TAGS------------------------------------------
 # add tags/view all tags
 class AddTagListView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
@@ -87,6 +127,7 @@ class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+# --------------------------------------------------USERS------------------------------------------
 
 # All user recommendations
 class UserRecommendationListView(generics.ListAPIView):

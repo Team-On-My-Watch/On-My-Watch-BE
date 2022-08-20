@@ -85,7 +85,7 @@ class FollowCreateView(generics.CreateAPIView):
 
 
 #unfollow
-class FollowRemoveView(generics.DestroyAPIView):
+class FollowRemoveView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
     permission_classes = [IsAuthenticated]

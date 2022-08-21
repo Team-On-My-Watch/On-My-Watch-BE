@@ -48,7 +48,7 @@ class FollowingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Follow
-        fields= ('followee', 'followee_id',)
+        fields= ('followee', 'followee_id', 'id',)
 
 
 class FollowUnfollowSerializer(serializers.ModelSerializer):

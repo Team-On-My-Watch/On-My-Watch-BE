@@ -28,6 +28,7 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
 
 
+
 ### Register
 > /auth/users/
 - Method: POST
@@ -122,53 +123,57 @@ Response: 201_Created
 - The pk in the URL above identifies the recommendation you wish to delete
 - Response: 204_NO_CONTENT
 
-### Follow a User
-> /api/follows/
-- Method: POST
 
-### Unfollow a User
-> /api/follows/<int:pk>/delete
-- Method: DELETE
-- The pk in the URL above identifies the number for the following relationship you wish to delete.
+
+
+
+*** ~ OLD INFO FROM LAST PROJECT  - USE AS TEMPLATES ~ *** 
+
+### List Answers / Create Answer
+> /api/questions/int:pk/answer/
+- List Answers:
+  - Method: GET
+  - The URL pk identifies the question whose answers will return
+  - Response: 200_OK, Array of answers for question specified in URL
+
+- Create Answer:
+  - Method: POST
+  - The URL pk identifies the question being answered
+  - Data JSON: Example
+
+```
+{
+"answer_body": "your sample answer here"	
+}
+```
+_
+  - Response: 201_Created
+
+
+
+
+
+### Star Question / Unstar Question
+> /api/questions/int:pk/star
+- Methods: star- POST, unstar - DELETE
+
+
+### Delete Question
+> /api/questions/int:pk/trash
+- Method: DELETE 
+- The pk in the URL above identifies the question you wish to delete
 - Response: 204_NO_CONTENT
 
-### List of Followers
-> /api/myfollowers/
-- Method: GET
 
-### List of Users You Are Following
-> /api/following/
-- Method: GET
-- 
-### View User's Favorite Recommendations
-> /api/user/watchlist/recommendations/
-- Method: GET
-- 
-### Add Favorites
-> /api/recommendation/int:pk/watchlist/
-- Method: POST
-- 
-### Remove Favorites
-> /api/recommendation/int:pk/watchlist/
-- Method: DELETE
-- 
-### View Tags
-> /api/tags/
-- Method: GET
-- 
-### Create Tag
-> /api/tags/
-- Method: POST
-- 
-### Delete Tag
-> /api/tag/int:pk/delete/
-- Method: DELETE
-- 
-### View All Users Recommendations
->/api/user/int:pk/recommendations/
-- Method: GET
-- 
+### Star Answer / Unstar Answer
+> /api/answers/int:pk/star
+- Methods: star- POST, unstar - DELETE
 
+
+### List User's Questions and Answers
+> /api/myquestions/
+- Method: GET
+- Response: 200_OK, Array of all questions and answers created by specific user
 
 
 

@@ -86,12 +86,11 @@ class FollowCreateView(generics.CreateAPIView):
 
 
 #unfollow
-class FollowRemoveView(generics.RetrieveUpdateDestroyAPIView):
+class FollowRemoveView(generics.DestroyAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
     permission_classes = [IsAuthenticated]
-
-
+    
 # -----------------------------------------------WATCH LIST------------------------------------------
 class AddWatchListCardView(APIView):
 

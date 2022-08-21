@@ -7,7 +7,6 @@ This repository is the API for a React web application called On My Watch. The A
 
 Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
-<<<<<<< HEAD
 |                 | URL                                       |    Method    |                                   Function |
 | :-------------: | :---------------------------------------- | :----------: | -----------------------------------------: |
 |      Admin      | /auth/users/                              |     POST     |                                Create User |
@@ -22,30 +21,12 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |                 | /api/following/                           |     GET      |            List of Users You Are Following |
 |   Watch List    | /api/user/watchlist/recommendations/      |     GET      |          View User Favorite Recommendation |
 |                 | /api/recommendation/<int:pk>/watchlist/   | POST, DELETE |            Add Favorites, Remove Favorites |
-|                 | /api/user/watchedlist/                    |     GET      |           List of Content User Has Watched |
-|                 | /api/recommendation/<int:pk>/watchedlist/ | POST, DELETE |                Add Content, Remove Content |
+|  Watched List   | /api/watchedlist/                         |     GET      |                   View User's Watched List |
+|                 | /api/recommendation/<int:pk>/watchedlist/ | POST, DELETE |           Add To, Remove From Watched List |
 |      Tags       | /api/tags/                                |  GET, POST   |                      View Tags, Create Tag |
 |                 | /api/tag/<int:pk>/delete/                 |    DELETE    |                                Delete Tags |
 |      Users      | /api/user/<int:pk>/recommendations/       |     GET      |             View All Users Recommendations |
-=======
-|                 | URL                                     |    Method    |                                   Function |
-| :-------------: | :-------------------------------------- | :----------: | -----------------------------------------: |
-|      Admin      | /auth/users/                            |     POST     |                                Create User |
-| Authentication  | /auth/token/login/                      |     POST     |                                      Login |
-|                 | /auth/token/logout/                     |     POST     |                                     Logout |
-| Recommendations | /api/recommendation/                    |  GET, POST   | View Recommendation, Create Recommendation |
-|                 | /api/recommendation/<int:pk>/           |     GET      |                     Recommendation Details |
-|                 | /api/recommendation/<int:pk>/delete/    |    DELETE    |                     Delete Recommendations |
-|    Comments     | /api/recommendation/<int:pk>/comment/   |  GET, POST   |              View Comments, Create Comment |
-|    Followers    | /api/follows/                           |     POST     |                              Follow a User |
-|                 | /api/follows/<int:pk>/delete/           |    DELETE    |                            Unfollow a User |
-|                 | /api/myfollowers/                       |     GET      |                          List of Followers |
-|                 | /api/following/                         |     GET      |            List of Users You Are Following |
-|   Watch List    | /api/user/watchlist/recommendations/    |     GET      |          View User Favorite Recommendation |
-|                 | /api/recommendation/<int:pk>/watchlist/ | POST, DELETE |            Add Favorites, Remove Favorites |
-|      Tags       | /api/tags/                              |  GET, POST   |                      View Tags, Create Tag |
-|                 | /api/tag/<int:pk>/delete/               |    DELETE    |                                Delete Tags |
-|      Users      | /api/user/<int:pk>/recommendations/     |     GET      |             View All Users Recommendations |
+
 
 
 
@@ -172,7 +153,21 @@ Response: 201_Created
 ### Remove Favorites
 > /api/recommendation/int:pk/watchlist/
 - Method: DELETE
-- 
+
+### View User's Watched List
+> /api/watchedlist/  
+- Method: GET
+
+### Add to Watched List
+> /api/recommendation/<int:pk>/watchedlist/
+- Method: POST
+-
+
+### Remove from Watched List
+> /api/recommendation/<int:pk>/watchedlist/
+- Method: DELETE
+-
+
 ### View Tags
 > /api/tags/
 - Method: GET
@@ -263,4 +258,3 @@ python manage.py runserver
 
 ### Database tools
 [Postico](https://eggerapps.at/postico/) and [Dbeaver](https://dbeaver.io/) are great tools to that provide a GUI to interact with your database. [Insomnia](https://insomnia.rest/products/insomnia) is a great way to query your server, whether local or remote. All three are available on Homebrew.
->>>>>>> 8d1278dc8f7a3b36817072b43564a9fb8bfdb1d3

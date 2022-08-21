@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from recommendations import permissions
+import recommendations
 from recommendations.permissions import IsOwner
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
 from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
@@ -114,6 +115,32 @@ class UserWatchListView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.request.user.saves.all()
+
+
+# -----------------------------------------------WATCHED LIST------------------------------------------
+class WatchedListView(APIView):
+
+    def post(self, request, **kwargs):
+        user = self.request.user
+        recommendation = get_object_or_404(Recommendation, pk = self.kwargs['pk'])
+        user.saves.add(recommendation)
+        serializer = RecommendationSerializer(recommendation, context={'request': request})
+        return Response(serializer.data, status=201)
+
+    def delete(self, request, **kwargs):
+        user = self.request.user
+        recommendation = get_object_or_404(Recommendation, pk=self.kwargs['pk'])
+        user.saves.remove(recommendation)
+        serializer = RecommendationSerializer(recommendation, context={'request': request})
+        return Response(serializer.data, status=204)
+
+
+class UserWatchedListView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+
+    def get_queryset(self):
+        return self.request.user.saves.all()
+
 
 # --------------------------------------------------TAGS------------------------------------------
 # add tags/view all tags

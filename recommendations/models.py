@@ -1,5 +1,3 @@
-from operator import mod
-from statistics import mode
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -48,10 +46,13 @@ class Comment(BaseModel):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
-
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows_user_initiated', null=True)
+    followee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follows_user_received', null=True)
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'following'], name='unique_following')
         ]
+    
+    def __str__(self):
+        return f'{self.follower} follows {self.followee}'

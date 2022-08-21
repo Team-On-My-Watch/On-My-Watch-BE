@@ -3,16 +3,10 @@ from recommendations.models import User, Tag, Recommendation, Comment, Follow
 
 
 class UserSerializer(serializers.ModelSerializer):
-    followers = serializers.SerializerMethodField()
-
-    def get_followers(self, obj):
-        follow_objects = Follow.objects.filter(followee=obj)
-        followers = [follow_object.follower.username for follow_object in follow_objects]
-        return followers
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'followers')
+        fields = ('id', 'username',)
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -26,10 +20,11 @@ class RecommendationSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(slug_field="username", read_only=True)
     tag = serializers.SlugRelatedField(queryset=Tag.objects.all(), many=True, slug_field="tags")
     saved_by = serializers.SlugRelatedField(queryset=User.objects.all(), many=True, slug_field="username")
+    user_info = UserSerializer(source='user', read_only=True)
 
     class Meta:
         model = Recommendation
-        fields = ('id', 'user', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at')
+        fields = ('id', 'user', 'user_info', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -40,14 +35,29 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'recommendation', 'comment', 'created_at')
 
 
-class FollowingSerializer(serializers.ModelSerializer):
-    following = serializers.SerializerMethodField()
+class FollowSerializer(serializers.ModelSerializer):
+    follower  = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    
+    class Meta:
+        model = Follow
+        fields= ('follower',)
 
-    def get_following(self, obj):
-        follow_objects = Follow.objects.filter(follower=obj)
-        following = [follow_object.followee.username for follow_object in follow_objects]
-        return following
+
+class FollowingSerializer(serializers.ModelSerializer):
+    followee = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    followee_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
-        model = User
-        fields = ('id', 'username', 'following')
+        model = Follow
+        fields= ('id','followee', 'followee_id',)
+
+
+class FollowUnfollowSerializer(serializers.ModelSerializer):
+    followee = serializers.PrimaryKeyRelatedField(read_only=True)
+    follower = serializers.PrimaryKeyRelatedField(read_only=True)
+    followee_name = serializers.ReadOnlyField(source='user.username')
+
+    class Meta:
+        model = Follow
+        fields = ( 'pk','follower', 'followee', 'followee_name',)
+

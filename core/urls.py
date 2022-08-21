@@ -30,14 +30,23 @@ urlpatterns = [
     path('api/recommendation/<int:pk>/comment/', views.CommentAddView.as_view()),
     path('api/recommendation/<int:pk>/delete/', views.RecommendationDestroyView.as_view()),
     # Follow Views
-    path('api/user/<int:pk>/followers/', views.UserDetailView.as_view()),
-    path('api/user/<int:pk>/following/', views.UserFollowingDetailView.as_view()),
+    path('api/follows/', views.FollowCreateView.as_view()),
+    path('api/follows/<int:pk>/delete/', views.FollowRemoveView.as_view()),
+    path('api/myfollowers/', views.FollowerView.as_view()),
+    path('api/following/', views.FollowingView.as_view()),
     # Watch list
     path('api/user/watchlist/recommendations/', views.UserWatchListView.as_view()),
     path('api/recommendation/<int:pk>/watchlist/', views.AddWatchListCardView.as_view()),
+    # Watched list
+    path('api/watchedlist/', views.UserWatchedListView.as_view()),
+    path('api/recommendation/<int:pk>/watchedlist', views.WatchedListView.as_view()),
     # Tags
     path('api/tags/', views.AddTagListView.as_view()),
     path('api/tag/<int:pk>/delete/', views.TagDestroyView.as_view()),
     # Users
     path('api/user/<int:pk>/recommendations/', views.UserRecommendationListView.as_view()),
+    # Search
+    path('api/search/movie/recommendations/', views.MovieSearchRecommendationView.as_view()),
+    path('api/search/tvs/recommendations/', views.TVSSearchRecommendationView.as_view()),
+    path('api/search/recommendations/', views.SearchRecommendationView.as_view()),
 ]

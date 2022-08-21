@@ -45,4 +45,8 @@ urlpatterns = [
     path('api/tag/<int:pk>/delete/', views.TagDestroyView.as_view()),
     # Users
     path('api/user/<int:pk>/recommendations/', views.UserRecommendationListView.as_view()),
+    # Search
+    path('api/search/movie/recommendations/', views.MovieSearchRecommendationView.as_view()),
+    path('api/search/tvs/recommendations/', views.TVSSearchRecommendationView.as_view()),
+    path('api/search/recommendations/', views.SearchRecommendationView.as_view()),
 ]

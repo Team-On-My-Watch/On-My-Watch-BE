@@ -150,7 +150,7 @@ Response: 201_Created
 ### Unfollow a User
 > /api/follows/<int:pk>/delete
 - Method: DELETE
-- The pk in the URL above refers to the pk number for the following relationship you wish to delete. 
+- The pk in the URL above refers to the id number of the following relationship you wish to delete. 
 - Response: 204_NO_CONTENT
 
 ### List of Followers

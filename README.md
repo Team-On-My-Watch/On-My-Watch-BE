@@ -26,6 +26,9 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |      Tags       | /api/tags/                                |  GET, POST   |                      View Tags, Create Tag |
 |                 | /api/tag/<int:pk>/delete/                 |    DELETE    |                                Delete Tags |
 |      Users      | /api/user/<int:pk>/recommendations/       |     GET      |             View All Users Recommendations |
+|      Search     | /api/search/recommendations/?search=      |     GET      |      Search All Recommendations Title/Desc |
+|                 | /api/search/movie/recommendations/?search=|     GET      |Search All Moive Recommendations Title/Desc |
+|                 | /api/search/tvs/recommendations/?search=  |     GET      |  Search All TVS Recommendations Title/Desc |
 
 
 

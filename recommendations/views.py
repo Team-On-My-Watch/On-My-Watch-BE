@@ -4,8 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from recommendations import permissions
-import recommendations
+from rest_framework import filters
 from recommendations.permissions import IsOwner
+from django_filters.rest_framework import DjangoFilterBackend
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
 from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
 
@@ -15,6 +16,7 @@ from .serializers import CommentSerializer, RecommendationSerializer, TagSeriali
 class RecommendationAddListView(generics.ListCreateAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
+    filter_backends = [filters.SearchFilter]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -165,3 +167,28 @@ class UserRecommendationListView(generics.ListAPIView):
     def perform_create(self, serializer):
         user = get_object_or_404(User, pk=self.kwargs.get("pk"))
         serializer.save(user=user)
+
+
+# Search Recommendation
+class MovieSearchRecommendationView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+    filter_backends = [filters.SearchFilter]
+    queryset = Recommendation.objects.filter(medium="Movie")
+
+    search_fields = ['$title', '$description']
+
+
+class TVSSearchRecommendationView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+    filter_backends = [filters.SearchFilter]
+    queryset = Recommendation.objects.filter(medium="TVS")
+
+    search_fields = ['$title', '$description']
+
+
+class SearchRecommendationView(generics.ListAPIView):
+    serializer_class = RecommendationSerializer
+    filter_backends = [filters.SearchFilter]
+    queryset = Recommendation.objects.all()
+
+    search_fields = ['$title', '$description']

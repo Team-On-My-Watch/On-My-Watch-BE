@@ -30,14 +30,14 @@ class Recommendation(BaseModel):
     imdbid = models.TextField(max_length=100)
     title = models.CharField(max_length=125)
     medium = models.CharField(max_length=255)
-    genre = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
+    genre = models.JSONField(max_length=200, null=True)
     tag = models.ManyToManyField(Tag, related_name='user_tags')
     description = models.TextField(max_length=1000)
-    streaming_service = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
+    streaming_service = models.JSONField(max_length=200, null=True)
     poster = models.URLField(max_length=500, null=True)
-    related_shows = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
-    keywords = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
-    actors = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
+    related_shows = models.JSONField(max_length=200, null=True)
+    keywords = models.JSONField(max_length=200, null=True)
+    actors = models.JSONField(max_length=200, null=True)
 
 
 class Comment(BaseModel):

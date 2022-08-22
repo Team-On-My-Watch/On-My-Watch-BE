@@ -34,7 +34,7 @@ class Recommendation(BaseModel):
     tag = models.ManyToManyField(Tag, related_name='user_tags')
     description = models.TextField(max_length=1000)
     streaming_service = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
-    poster = models.URLField(max_length=100, null=True)
+    poster = models.URLField(max_length=500, null=True)
     related_shows = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
     keywords = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)
     actors = ArrayField(models.CharField(max_length=200, null=True), blank=True, null=True)

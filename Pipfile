@@ -18,8 +18,6 @@ shell = "*"
 pillow = "*"
 heroku = "*"
 django-filter = "*"
-boto3 = "*"
-django-storages = "*"
 
 [dev-packages]
 flake8 = "*"

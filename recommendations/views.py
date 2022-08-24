@@ -175,7 +175,7 @@ class MovieSearchRecommendationView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     queryset = Recommendation.objects.filter(medium="Movie")
 
-    search_fields = ['$title', '$description']
+    search_fields = ['$title', '$description', 'imdbid']
 
 
 class TVSSearchRecommendationView(generics.ListAPIView):
@@ -183,7 +183,7 @@ class TVSSearchRecommendationView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     queryset = Recommendation.objects.filter(medium="TVS")
 
-    search_fields = ['$title', '$description']
+    search_fields = ['$title', '$description', 'imdbid']
 
 
 class SearchRecommendationView(generics.ListAPIView):
@@ -191,4 +191,4 @@ class SearchRecommendationView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     queryset = Recommendation.objects.all()
 
-    search_fields = ['$title', '$description']
+    search_fields = ['$title', '$description', 'imdbid']

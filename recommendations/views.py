@@ -4,12 +4,13 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.parsers import FileUploadParser
 from recommendations import permissions
 from rest_framework import filters
 from recommendations.permissions import IsOwner
 from django_filters.rest_framework import DjangoFilterBackend
-from recommendations.models import Recommendation, Comment, UploadImageTest, User, Tag, Follow
-from .serializers import CommentSerializer, ImageSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
+from recommendations.models import Recommendation, Comment, User, Tag, Follow
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
 
 
 # --------------------------------------------RECOMMENDATIONS-------------------------------------
@@ -196,12 +197,9 @@ class SearchRecommendationView(generics.ListAPIView):
 
 
 
-class ImageViewSet(generics.ListAPIView):
-    queryset = UploadImageTest.objects.all()
-    serializer_class = ImageSerializer
-
-    def post(self, request, *args, **kwargs):
+class ImageView(APIView):
+    parser_classes = [FileUploadParser]
+    def patch(self, request, format=None):
         file = request.data['file']
-        image = UploadImageTest.objects.create(image=file)
-        return HTTPResponse(json.dumps({'message': "Uploaded"}), status=200)
-
+        request.user.image.save(file.name, file, save=True)
+        return Response(status=204)

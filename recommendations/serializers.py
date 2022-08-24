@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from recommendations.models import User, Tag, Recommendation, Comment, Follow
+from recommendations.models import UploadImageTest, User, Tag, Recommendation, Comment, Follow
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -61,3 +61,8 @@ class FollowUnfollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = ( 'pk','follower', 'followee', 'followee_name',)
 
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadImageTest
+        fields = ('name', 'image')

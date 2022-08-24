@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -7,8 +8,8 @@ from recommendations import permissions
 from rest_framework import filters
 from recommendations.permissions import IsOwner
 from django_filters.rest_framework import DjangoFilterBackend
-from recommendations.models import Recommendation, Comment, User, Tag, Follow
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
+from recommendations.models import Recommendation, Comment, UploadImageTest, User, Tag, Follow
+from .serializers import CommentSerializer, ImageSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
 
 
 # --------------------------------------------RECOMMENDATIONS-------------------------------------
@@ -192,3 +193,15 @@ class SearchRecommendationView(generics.ListAPIView):
     queryset = Recommendation.objects.all()
 
     search_fields = ['$title', '$description', 'imdbid']
+
+
+
+class ImageViewSet(generics.ListAPIView):
+    queryset = UploadImageTest.objects.all()
+    serializer_class = ImageSerializer
+
+    def post(self, request, *args, **kwargs):
+        file = request.data['file']
+        image = UploadImageTest.objects.create(image=file)
+        return HTTPResponse(json.dumps({'message': "Uploaded"}), status=200)
+

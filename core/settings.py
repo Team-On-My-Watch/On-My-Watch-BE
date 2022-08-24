@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 import django_on_heroku
 
 env = environ.Env(
@@ -168,3 +169,8 @@ del DATABASES['default']['OPTIONS']['sslmode']
 # Django CORS Headers
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+# FOR IMAGE UPLOAD
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/' # 'http://myhost:port/media/'

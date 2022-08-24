@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import ArrayField
+
 
 # Create your models here.
 class User(AbstractUser):
+
     def __str__(self):
         return self.username
-    
+
     def __repr__(self):
         return f'<User username={self.username} pk={self.pk}>'
 
@@ -34,7 +35,7 @@ class Recommendation(BaseModel):
     tag = models.ManyToManyField(Tag, related_name='user_tags')
     description = models.TextField(max_length=1000)
     streaming_service = models.JSONField(max_length=200, null=True)
-    poster = models.TextField(max_length=500, null=True)
+    poster = models.JSONField(max_length=500, null=True)
     related_shows = models.JSONField(max_length=200, null=True)
     keywords = models.JSONField(max_length=200, null=True)
     actors = models.JSONField(max_length=200, null=True)

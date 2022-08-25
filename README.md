@@ -7,28 +7,30 @@ This repository is the API for a React web application called On My Watch. The A
 
 Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
-|                 | URL                                       |    Method    |                                   Function |
-| :-------------: | :---------------------------------------- | :----------: | -----------------------------------------: |
-|      Admin      | /auth/users/                              |     POST     |                                Create User |
-| Authentication  | /auth/token/login/                        |     POST     |                                      Login |
-|                 | /auth/token/logout/                       |     POST     |                                     Logout |
-| Recommendations | /api/recommendation/                      |  GET, POST   | View Recommendation, Create Recommendation |
-|                 | /api/recommendation/<int:pk>/             |     GET      |                     Recommendation Details |
-|                 | /api/recommendation/<int:pk>/delete/      |    DELETE    |                     Delete Recommendations |
-|    Comments     | /api/recommendation/<int:pk>/comment/     |  GET, POST   |              View Comments, Create Comment |
-|    Followers    | /api/follows/                             |     POST     |                              Follow a User |
-|                 | /api/myfollowers/                         |     GET      |                          List of Followers |
-|                 | /api/following/                           |     GET      |            List of Users You Are Following |
-|   Watch List    | /api/user/watchlist/recommendations/      |     GET      |          View User Favorite Recommendation |
-|                 | /api/recommendation/<int:pk>/watchlist/   | POST, DELETE |            Add Favorites, Remove Favorites |
-|  Watched List   | /api/watchedlist/                         |     GET      |                   View User's Watched List |
-|                 | /api/recommendation/<int:pk>/watchedlist/ | POST, DELETE |           Add To, Remove From Watched List |
-|      Tags       | /api/tags/                                |  GET, POST   |                      View Tags, Create Tag |
-|                 | /api/tag/<int:pk>/delete/                 |    DELETE    |                                Delete Tags |
-|      Users      | /api/user/<int:pk>/recommendations/       |     GET      |             View All Users Recommendations |
-|      Search     | /api/search/recommendations/?search=      |     GET      |      Search All Recommendations Title/Desc |
-|                 | /api/search/movie/recommendations/?search=|     GET      |Search All Moive Recommendations Title/Desc |
-|                 | /api/search/tvs/recommendations/?search=  |     GET      |  Search All TVS Recommendations Title/Desc |
+|                      | URL                                        |    Method    |                                    Function |
+| :------------------: | :----------------------------------------- | :----------: | ------------------------------------------: |
+|        Admin         | /auth/users/                               |     POST     |                                 Create User |
+|    Authentication    | /auth/token/login/                         |     POST     |                                       Login |
+|                      | /auth/token/logout/                        |     POST     |                                      Logout |
+| Profile Image Upload | /api/upload/                               |    PATCH     |                   Add Image for User Avatar |
+|   Recommendations    | /api/recommendation/                       |  GET, POST   |  View Recommendation, Create Recommendation |
+|                      | /api/recommendation/<int:pk>/              |     GET      |                      Recommendation Details |
+|                      | /api/recommendation/<int:pk>/delete/       |    DELETE    |                      Delete Recommendations |
+|       Comments       | /api/recommendation/<int:pk>/comment/      |  GET, POST   |               View Comments, Create Comment |
+|      Followers       | /api/follows/                              |     POST     |                               Follow a User |
+|                      | /api/follows/<int:pk>/delete               |    DELETE    |                             Unfollow a User |
+|                      | /api/myfollowers/                          |     GET      |                           List of Followers |
+|                      | /api/following/                            |     GET      |             List of Users You Are Following |
+|      Watch List      | /api/user/watchlist/recommendations/       |     GET      |           View User Favorite Recommendation |
+|                      | /api/recommendation/<int:pk>/watchlist/    | POST, DELETE |             Add Favorites, Remove Favorites |
+|     Watched List     | /api/watchedlist/                          |     GET      |                    View User's Watched List |
+|                      | /api/recommendation/<int:pk>/watchedlist/  | POST, DELETE |            Add To, Remove From Watched List |
+|         Tags         | /api/tags/                                 |  GET, POST   |                       View Tags, Create Tag |
+|                      | /api/tag/<int:pk>/delete/                  |    DELETE    |                                 Delete Tags |
+|        Users         | /api/user/<int:pk>/recommendations/        |     GET      |              View All Users Recommendations |
+|        Search        | /api/search/recommendations/?search=       |     GET      |       Search All Recommendations Title/Desc |
+|                      | /api/search/movie/recommendations/?search= |     GET      | Search All Moive Recommendations Title/Desc |
+|                      | /api/search/tvs/recommendations/?search=   |     GET      |   Search All TVS Recommendations Title/Desc |
 
 
 
@@ -76,6 +78,18 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 - Data: Authentication Token (See Example Authentication Token in Login section)
 
 - Response: No Data
+
+
+### User Image Upload
+> /api/upload/
+- Method: PATCH
+- Data: image file
+- Headers and Values: 
+  - Header: Content-Type, Value: image/extension_type 
+    - example: Content-Type image/jpeg
+  - Header: Content-Disposition, Value: attachment; filename=<name.ext> 
+    - example: Content-Disposition attachment; filename=selfie.jpeg
+- Respose: 204_No Content
 
 
 ### View All Recommendations
@@ -127,9 +141,13 @@ Response: 201_Created
 - The pk in the URL above identifies the recommendation you wish to delete
 - Response: 204_NO_CONTENT
 
+
 ### Follow a User
 > /api/follows/
 - Method: POST
+- Data:
+- Resposne:
+
 
 ### Unfollow a User
 > /api/follows/<int:pk>/delete
@@ -137,56 +155,110 @@ Response: 201_Created
 - The pk in the URL above refers to the id number of the following relationship you wish to delete. 
 - Response: 204_NO_CONTENT
 
+
 ### List of Followers
 > /api/myfollowers/
 - Method: GET
+- Data:
+- Resposne:
+
 
 ### List of Users You Are Following
 > /api/following/
 - Method: GET
-- 
+- Data:
+- Resposne:
+
+
 ### View User's Favorite Recommendations
 > /api/user/watchlist/recommendations/
 - Method: GET
-- 
+- Data:
+- Resposne:
+
+
 ### Add Favorites
 > /api/recommendation/int:pk/watchlist/
 - Method: POST
-- 
+- Data:
+- Resposne: 
+
+
 ### Remove Favorites
 > /api/recommendation/int:pk/watchlist/
 - Method: DELETE
+- Data:
+- Resposne:
+
 
 ### View User's Watched List
 > /api/watchedlist/  
 - Method: GET
+- Data:
+- Resposne:
+  
 
 ### Add to Watched List
 > /api/recommendation/<int:pk>/watchedlist/
 - Method: POST
--
+- Data:
+- Resposne:
+
 
 ### Remove from Watched List
 > /api/recommendation/<int:pk>/watchedlist/
 - Method: DELETE
--
+- Data:
+- Resposne:
+  
 
 ### View Tags
 > /api/tags/
 - Method: GET
-- 
+- Data:
+- Resposne:
+
+
 ### Create Tag
 > /api/tags/
 - Method: POST
-- 
+- Data:
+- Resposne:
+
+
 ### Delete Tag
 > /api/tag/int:pk/delete/
 - Method: DELETE
-- 
+- Data:
+- Resposne:
+
+
 ### View All Users Recommendations
 >/api/user/int:pk/recommendations/
 - Method: GET
-- 
+- Data:
+- Resposne:
+
+
+### Search All Recommendations by Title or Description
+> /api/search/recommendations/?search=   
+- Method: GET
+- Data:
+- Resposne:
+
+
+### Search All Movie Recommendations by Title or Description
+>/api/search/movie/recommendations/?search= 
+- Method: GET
+- Data:
+- Resposne:
+
+
+### Search All TV Show Recommendations by Title or Description
+>/api/search/tvs/recommendations/?search=  
+- Method: GET
+- Data:
+- Resposne:
 
 
 

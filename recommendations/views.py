@@ -196,7 +196,7 @@ class SearchRecommendationView(generics.ListAPIView):
     search_fields = ['$title', '$description', 'imdbid']
 
 
-
+# -------------------------------------------USER IMAGE AVATAR UPLOAD--------------------------------
 class ImageView(APIView):
     parser_classes = [FileUploadParser]
     def patch(self, request, format=None):

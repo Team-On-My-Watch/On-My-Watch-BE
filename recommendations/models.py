@@ -21,7 +21,7 @@ class BaseModel(models.Model):
 
 
 class Tag(BaseModel):
-    tags = models.TextField(max_length=50)
+    tags = models.CharField(max_length=50)
 
 
 class Recommendation(BaseModel):

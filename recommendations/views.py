@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from .filters import TagFilter
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -192,5 +193,6 @@ class SearchRecommendationView(generics.ListAPIView):
     queryset = Recommendation.objects.all()
 
     # search_fields = ['$title', '$description', 'imdbid', '$keywords', 'actors', 'user__username']
-    search_fields = ['user__username', 'tag__user_tags']
-    filterset_fields = ['tag__tags']
+    # search_fields = ['user__username', 'tag__user_tags']
+    filterset_fields = ['title', 'tag']
+    filter_class = TagFilter

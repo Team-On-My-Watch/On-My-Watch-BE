@@ -193,12 +193,3 @@ class SearchRecommendationView(generics.ListAPIView):
     queryset = Recommendation.objects.all()
 
     search_fields = ['$title', '$description', 'imdbid']
-
-
-# -------------------------------------------USER IMAGE AVATAR UPLOAD--------------------------------
-class ImageView(APIView):
-    parser_classes = [FileUploadParser]
-    def patch(self, request, format=None):
-        file = request.data['file']
-        request.user.image.save(file.name, file, save=True)
-        return Response(status=204)

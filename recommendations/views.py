@@ -10,7 +10,7 @@ from rest_framework import filters
 from recommendations.permissions import IsOwner
 from django_filters.rest_framework import DjangoFilterBackend
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
-from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer
+from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer, UserSerializer
 
 
 # --------------------------------------------RECOMMENDATIONS-------------------------------------
@@ -199,7 +199,10 @@ class SearchRecommendationView(generics.ListAPIView):
 
 class ImageView(APIView):
     parser_classes = [FileUploadParser]
+
     def patch(self, request, format=None):
         file = request.data['file']
         request.user.image.save(file.name, file, save=True)
-        return Response(status=204)
+        # return Response(status=204)
+        serialized_user = UserSerializer(request.user)
+        return Response(serialized_user.data, status=206)

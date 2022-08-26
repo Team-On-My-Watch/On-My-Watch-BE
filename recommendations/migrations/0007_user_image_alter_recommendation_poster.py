@@ -15,9 +15,4 @@ class Migration(migrations.Migration):
             name='image',
             field=models.ImageField(blank=True, null=True, upload_to='profile_photos'),
         ),
-        migrations.AlterField(
-            model_name='recommendation',
-            name='poster',
-            field=models.JSONField(max_length=500, null=True),
-        ),
     ]

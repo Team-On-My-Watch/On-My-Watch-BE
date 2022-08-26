@@ -197,3 +197,12 @@ class SearchRecommendationView(generics.ListAPIView):
     search_fields = ['$title', '$description', 'imdbid', '$keywords', '$actors', 'user__username', 'tag__tags']
     # filterset_fields = ['title', 'tag__tags']
     # filter_class = TagFilter
+
+
+class ImageView(APIView):
+    parser_classes = [FileUploadParser]
+
+    def patch(self, request, format=None):
+        file = request.data['file']
+        request.user.image.save(file.name, file, save=True)
+        return Response(status=204)

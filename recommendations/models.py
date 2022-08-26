@@ -27,7 +27,7 @@ class Tag(BaseModel):
 
 class Recommendation(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recommendations')
-    reason = models.TextField(max_length=750)
+    reason = models.TextField(max_length=2500)
     saved_by = models.ManyToManyField(User, related_name='saves', blank=True)
     imdbid = models.TextField(max_length=100)
     title = models.CharField(max_length=125)
@@ -36,10 +36,11 @@ class Recommendation(BaseModel):
     tag = models.ManyToManyField(Tag, related_name='user_tags')
     description = models.TextField(max_length=1000)
     streaming_service = models.JSONField(max_length=200, null=True)
-    poster = models.JSONField(max_length=500, null=True)
+    poster = models.TextField(max_length=500, null=True)
     related_shows = models.JSONField(max_length=200, null=True)
     keywords = models.JSONField(max_length=200, null=True)
     actors = models.JSONField(max_length=200, null=True)
+    emotion = models.JSONField(max_length=400, null=True)
 
 
 class Comment(BaseModel):

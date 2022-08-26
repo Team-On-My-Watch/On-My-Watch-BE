@@ -176,7 +176,7 @@ class MovieSearchRecommendationView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     queryset = Recommendation.objects.filter(medium="Movie")
 
-    search_fields = ['$title', '$description', 'imdbid', '$keywords', 'actors']
+    search_fields = ['$title', '$description', 'imdbid', '$keywords', '$actors', 'user__username', 'tag__tags']
 
 
 class TVSSearchRecommendationView(generics.ListAPIView):
@@ -184,15 +184,14 @@ class TVSSearchRecommendationView(generics.ListAPIView):
     filter_backends = [filters.SearchFilter]
     queryset = Recommendation.objects.filter(medium="TVS")
 
-    search_fields = ['$title', '$description', 'imdbid', '$keywords', 'actors']
+    search_fields = ['$title', '$description', 'imdbid', '$keywords', '$actors', 'user__username', 'tag__tags']
 
 
 class SearchRecommendationView(generics.ListAPIView):
+    queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    queryset = Recommendation.objects.all()
 
-    # search_fields = ['$title', '$description', 'imdbid', '$keywords', 'actors', 'user__username']
-    # search_fields = ['user__username', 'tag__user_tags']
-    filterset_fields = ['title', 'tag']
-    filter_class = TagFilter
+    search_fields = ['$title', '$description', 'imdbid', '$keywords', '$actors', 'user__username', 'tag__tags']
+    # filterset_fields = ['title', 'tag__tags']
+    # filter_class = TagFilter

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+from corsheaders.defaults import default_headers
 import django_on_heroku
 
 env = environ.Env(
@@ -170,6 +171,10 @@ del DATABASES['default']['OPTIONS']['sslmode']
 # Django CORS Headers
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'content-disposition',
+]
 
 
 # FOR IMAGE UPLOAD

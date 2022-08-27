@@ -41,6 +41,7 @@ class Recommendation(BaseModel):
     keywords = models.JSONField(max_length=200, null=True)
     actors = models.JSONField(max_length=200, null=True)
     emotion = models.JSONField(max_length=400, null=True)
+    watched_by = models.ManyToManyField(User, related_name="watches", blank=True)
 
 
 class Comment(BaseModel):

@@ -21,10 +21,11 @@ class RecommendationSerializer(serializers.ModelSerializer):
     tag = serializers.SlugRelatedField(queryset=Tag.objects.all(), many=True, slug_field="tags")
     saved_by = serializers.SlugRelatedField(queryset=User.objects.all(), many=True, slug_field="username")
     user_info = UserSerializer(source='user', read_only=True)
+    watched_by = serializers.SlugRelatedField(queryset=User.objects.all(), many=True, slug_field='username')
 
     class Meta:
         model = Recommendation
-        fields = ('id', 'user', 'user_info', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at', 'related_shows', 'keywords', 'actors', 'emotion')
+        fields = ('id', 'user', 'user_info', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at', 'related_shows', 'keywords', 'actors', 'emotion', 'watched_by',)
 
 
 class CommentSerializer(serializers.ModelSerializer):

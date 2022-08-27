@@ -126,14 +126,14 @@ class WatchedListView(APIView):
     def post(self, request, **kwargs):
         user = self.request.user
         recommendation = get_object_or_404(Recommendation, pk = self.kwargs['pk'])
-        user.saves.add(recommendation)
+        user.watches.add(recommendation)
         serializer = RecommendationSerializer(recommendation, context={'request': request})
         return Response(serializer.data, status=201)
 
     def delete(self, request, **kwargs):
         user = self.request.user
         recommendation = get_object_or_404(Recommendation, pk=self.kwargs['pk'])
-        user.saves.remove(recommendation)
+        user.watches.remove(recommendation)
         serializer = RecommendationSerializer(recommendation, context={'request': request})
         return Response(serializer.data, status=204)
 
@@ -142,7 +142,7 @@ class UserWatchedListView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
 
     def get_queryset(self):
-        return self.request.user.saves.all()
+        return self.request.user.watches.all()
 
 
 # --------------------------------------------------TAGS------------------------------------------

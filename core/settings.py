@@ -20,23 +20,21 @@ env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
 )
-
-# Take environment variables from .env file
+# reading .env file
 environ.Env.read_env()
+
+# False if not in os.environ 
+DEBUG = env('DEBUG')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Raises Django's ImproperlyConfigured
-# exception if SECRET_KEY not in os.environ
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# False if not in os.environ because of casting above
-
-DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -44,19 +42,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third Party
     'django_extensions',
     'djoser',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'recommendations',
     'storages',
+
+    # Apps
+    'recommendations',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +139,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 
 # Default primary key field type
@@ -145,7 +150,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#Django Rest Framework
+# Django Rest Framework
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -157,12 +162,12 @@ REST_FRAMEWORK = {
 }
 
 
-# Custom User Model
+# Required for custom user model
 
 AUTH_USER_MODEL = 'recommendations.User'
 
 
-# Heroku
+# Heroku settings
 
 django_on_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
@@ -172,17 +177,18 @@ del DATABASES['default']['OPTIONS']['sslmode']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# required for aws
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'content-disposition',
 ]
 
 
 # FOR IMAGE UPLOAD
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/' # 'http://myhost:port/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/' # 'http://myhost:port/media/'
 
 
-#aws configuration
+# AWS configuration
 # These are necessary for AWS.
 # Make sure these are set on Heroku as well
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")

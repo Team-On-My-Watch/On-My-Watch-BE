@@ -24,7 +24,7 @@ class RecommendationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recommendation
-        fields = ('id', 'user', 'user_info', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at', 'related_shows', 'keywords', 'actors')
+        fields = ('id', 'user', 'user_info', 'reason', 'saved_by', 'imdbid', 'title', 'medium', 'genre', 'tag', 'description', 'streaming_service', 'poster', 'created_at', 'related_shows', 'keywords', 'actors', 'emotion')
 
 
 class CommentSerializer(serializers.ModelSerializer):

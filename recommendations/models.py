@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
 class User(AbstractUser):
     image = models.ImageField(upload_to='profile_photos', blank=True, null=True)
 
@@ -41,7 +40,7 @@ class Recommendation(BaseModel):
     keywords = models.JSONField(max_length=200, null=True)
     actors = models.JSONField(max_length=200, null=True)
     emotion = models.JSONField(max_length=400, null=True)
-    watched_by = models.ManyToManyField(User, related_name="watches", blank=True)
+    watched_by = models.ManyToManyField(User, related_name="watches")
 
 
 class Comment(BaseModel):

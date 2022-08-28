@@ -183,11 +183,6 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 ]
 
 
-# FOR IMAGE UPLOAD
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/' # 'http://myhost:port/media/'
-
-
 # AWS configuration
 # These are necessary for AWS.
 # Make sure these are set on Heroku as well

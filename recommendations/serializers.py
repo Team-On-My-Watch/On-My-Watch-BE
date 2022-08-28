@@ -45,13 +45,14 @@ class FollowSerializer(serializers.ModelSerializer):
 
 
 class FollowingSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(slug_field="username", read_only=True)
     followee = serializers.SlugRelatedField(slug_field="username", read_only=True)
     followee_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     user_info = UserSerializer(source='user', read_only=True)
 
     class Meta:
         model = Follow
-        fields= ('id','followee', 'followee_id', 'user_info',)
+        fields= ('id', 'user', 'followee', 'followee_id', 'user_info',)
 
 
 class FollowUnfollowSerializer(serializers.ModelSerializer):

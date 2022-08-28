@@ -7,30 +7,30 @@ This repository is the API for a React web application called On My Watch. The A
 
 Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
-|                      | URL                                        |    Method    |                                    Function |
-| :------------------: | :----------------------------------------- | :----------: | ------------------------------------------: |
-|        Admin         | /auth/users/                               |     POST     |                                 Create User |
-|    Authentication    | /auth/token/login/                         |     POST     |                                       Login |
-|                      | /auth/token/logout/                        |     POST     |                                      Logout |
-| Profile Image Upload | /api/upload/                               |    PATCH     |                   Add Image for User Avatar |
-|   Recommendations    | /api/recommendation/                       |  GET, POST   |  View Recommendation, Create Recommendation |
-|                      | /api/recommendation/<int:pk>/              |     GET      |                      Recommendation Details |
-|                      | /api/recommendation/<int:pk>/delete/       |    DELETE    |                      Delete Recommendations |
-|       Comments       | /api/recommendation/<int:pk>/comment/      |  GET, POST   |               View Comments, Create Comment |
-|      Followers       | /api/follows/                              |     POST     |                               Follow a User |
-|                      | /api/follows/<int:pk>/delete               |    DELETE    |                             Unfollow a User |
-|                      | /api/myfollowers/                          |     GET      |                           List of Followers |
-|                      | /api/following/                            |     GET      |             List of Users You Are Following |
-|      Watch List      | /api/user/watchlist/recommendations/       |     GET      |           View User Favorite Recommendation |
-|                      | /api/recommendation/<int:pk>/watchlist/    | POST, DELETE |             Add Favorites, Remove Favorites |
-|     Watched List     | /api/watchedlist/                          |     GET      |                    View User's Watched List |
-|                      | /api/recommendation/<int:pk>/watchedlist/  | POST, DELETE |            Add To, Remove From Watched List |
-|         Tags         | /api/tags/                                 |  GET, POST   |                       View Tags, Create Tag |
-|                      | /api/tag/<int:pk>/delete/                  |    DELETE    |                                 Delete Tags |
-|        Users         | /api/user/<int:pk>/recommendations/        |     GET      |              View All Users Recommendations |
-|        Search        | /api/search/recommendations/?search=       |     GET      |       Search All Recommendations Title/Desc |
-|                      | /api/search/movie/recommendations/?search= |     GET      | Search All Moive Recommendations Title/Desc |
-|                      | /api/search/tvs/recommendations/?search=   |     GET      |   Search All TVS Recommendations Title/Desc |
+|             Type              | URL                                        |    Method    |                                 Description |
+| :---------------------------: | :----------------------------------------- | :----------: | ------------------------------------------: |
+|        Authentication         | /auth/users/                               |     POST     |                                 Create User |
+|        Authentication         | /auth/token/login/                         |     POST     |                                       Login |
+|        Authentication         | /auth/token/logout/                        |     POST     |                                      Logout |
+|     Profile Image Upload      | /api/upload/                               |    PATCH     |                   Add Image for User Avatar |
+|        Recommendations        | /api/recommendation/                       |  GET, POST   |  View Recommendation, Create Recommendation |
+|        Recommendations        | /api/recommendation/<int:pk>/              |     GET      |                      Recommendation Details |
+|        Recommendations        | /api/recommendation/<int:pk>/delete/       |    DELETE    |                      Delete Recommendations |
+|           Comments            | /api/recommendation/<int:pk>/comment/      |  GET, POST   |               View Comments, Create Comment |
+|           Followers           | /api/follows/                              |     POST     |                               Follow a User |
+|           Unfollow            | /api/follows/<int:pk>/delete               |    DELETE    |                             Unfollow a User |
+|       List of Followers       | /api/myfollowers/                          |     GET      |                           List of Followers |
+| List of Who User is Following | /api/following/                            |     GET      |             List of Users You Are Following |
+|          Watch List           | /api/user/watchlist/recommendations/       |     GET      |           View User Favorite Recommendation |
+|          Watch List           | /api/recommendation/<int:pk>/watchlist/    | POST, DELETE |             Add Favorites, Remove Favorites |
+|         Watched List          | /api/watchedlist/                          |     GET      |                    View User's Watched List |
+|         Watched List          | /api/recommendation/<int:pk>/watchedlist/  | POST, DELETE |            Add To, Remove From Watched List |
+|             Tags              | /api/tags/                                 |  GET, POST   |                       View Tags, Create Tag |
+|             Tags              | /api/tag/<int:pk>/delete/                  |    DELETE    |                                 Delete Tags |
+|             Users             | /api/user/<int:pk>/recommendations/        |     GET      |              View All Users Recommendations |
+|         Search - All          | /api/search/recommendations/?search=       |     GET      |       Search All Recommendations Title/Desc |
+|     Search - Movies Only      | /api/search/movie/recommendations/?search= |     GET      | Search All Moive Recommendations Title/Desc |
+|    Search - TV Shows Only     | /api/search/tvs/recommendations/?search=   |     GET      |   Search All TVS Recommendations Title/Desc |
 
 
 
@@ -57,8 +57,8 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
 ```python
 { 
-	"username": "<username>", 
-	"password": "<password>" 
+	"password": "<password>",
+	"username": "<username>"
 }
 ```
 
@@ -71,31 +71,30 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 ```
 
 
+
 ### Logout
 > /auth/token/logout/
 - Method: POST
-
 - Data: Authentication Token (See Example Authentication Token in Login section)
-
 - Response: No Data
 
 
 ### User Image Upload
 > /api/upload/
 - Method: PATCH
-- Data: image file
+- Data: Binary file containing image file
 - Headers and Values: 
   - Header: Content-Type, Value: image/extension_type 
     - example: Content-Type image/jpeg
   - Header: Content-Disposition, Value: attachment; filename=<name.ext> 
     - example: Content-Disposition attachment; filename=selfie.jpeg
-- Respose: 204_No Content
+- Respose: 206 Partial Content, Response will contain link to the image uploaded on Amazon AWS
 
 
 ### View All Recommendations
 > /api/recommendation/
 - Method: GET
-- Response: 200_OK, Array of all recommendations
+- Response: 200 OK, Array of all recommendations
 
 
 ### Create Recommendation
@@ -105,75 +104,70 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
 ```
 {
-	"id": 4,
-	"user": "amanda",
-	"user_info": {
-		"id": 7,
-		"username": "amanda"
-	},
 	"reason": "Bob Odenkirk is incredible....yet again.",
 	"saved_by": [],
+	"watched_by": [],
 	"imdbid": "abqnmluvn1",
 	"title": "Nobody",
 	"medium": "M",
 	"genre": "Drama",
 	"tag": [],
-	"description": "Bob Odenkirk is the only person that could ever play this role and make it so believable and so good. The fight scene on the bus, with Sammy Davis Jr. playing in the background...chef's kiss.",
-	"streaming_service": null,
-	"poster": null,
-	"created_at": "2022-08-21T02:07:42.492664Z"
+	"description": "Bob Odenkirk is the only person that could ever play this role and make it so believable and so good. The fight scene on the bus, with Sammy Davis Jr. playing in the background...chef's kiss."
 }
 ```
 
-Response: 201_Created
+Response: 201 Created
 
 
 ### Recommendation Detail
 > /api/recommendation/int:pk/
 - Method: GET
-- The URL pk identifies the recommendation for which to return details
-- Response: 200_OK, Array of details for recommendation specified in URL
+- The pk in the URL above identifies the recommendation for which to return details
+- Response: 200 OK, Array of details for recommendation specified in URL
 
 
 ### Delete Recommendation
 > /api/recommendation/int:pk/delete/
 - Method: DELETE 
 - The pk in the URL above identifies the recommendation you wish to delete
-- Response: 204_NO_CONTENT
+- Response: 204 No Content
 
 
 ### Follow a User
 > /api/follows/
 - Method: POST
-- Data:
-- Resposne:
+- Data JSON:
+
+```python
+{ 
+	"followee": pk
+}
+```
+- Resposne: 201 Created, Follow relationship JSON object
 
 
 ### Unfollow a User
 > /api/follows/<int:pk>/delete
 - Method: DELETE
-- The pk in the URL above refers to the id number of the following relationship you wish to delete. 
-- Response: 204_NO_CONTENT
+- The pk in the URL above refers to the pk of the following relationship you wish to delete. 
+- Response: 204 No Content
 
 
 ### List of Followers
 > /api/myfollowers/
 - Method: GET
-- Data:
-- Resposne:
+- Resposne: 200 OK, Array of users following your account
 
 
 ### List of Users You Are Following
 > /api/following/
 - Method: GET
-- Data:
-- Resposne:
+- Resposne: 200 OK, Array of users you are following
 
 
 ### View User's Favorite Recommendations
 > /api/user/watchlist/recommendations/
 - Method: GET
-- Data:
 - Resposne:
 
 
@@ -330,6 +324,7 @@ DATABASE_URL=postgres://<username>:@127.0.0.1:5432/<dbname>
 ```bash
 python manage.py runserver
 ```
+
 
 ### Database tools
 [Postico](https://eggerapps.at/postico/) and [Dbeaver](https://dbeaver.io/) are great tools to that provide a GUI to interact with your database. [Insomnia](https://insomnia.rest/products/insomnia) is a great way to query your server, whether local or remote. All three are available on Homebrew.

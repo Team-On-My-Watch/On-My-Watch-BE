@@ -29,8 +29,8 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |             Tags              | /api/tag/<int:pk>/delete/                  |    DELETE    |                                 Delete Tags |
 |             Users             | /api/user/<int:pk>/recommendations/        |     GET      |              View All Users Recommendations |
 |         Search - All          | /api/search/recommendations/?search=       |     GET      |       Search All Recommendations Title/Desc |
-|     Search - Movies Only      | /api/search/movie/recommendations/?search= |     GET      | Search All Moive Recommendations Title/Desc |
-|    Search - TV Shows Only     | /api/search/tvs/recommendations/?search=   |     GET      |   Search All TVS Recommendations Title/Desc |
+|     Search - Movies Only      | /api/search/movie/recommendations/?search= |     GET      | Search All Movie Recommendations Title/Desc |
+|    Search - TV Shows Only     | /api/search/tvs/recommendations/?search=   |     GET      |   Search All TV Show Recommendations Title/Desc |
 
 
 
@@ -88,7 +88,7 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
     - example: Content-Type image/jpeg
   - Header: Content-Disposition, Value: attachment; filename=<name.ext> 
     - example: Content-Disposition attachment; filename=selfie.jpeg
-- Respose: 206 Partial Content / Response will contain link to the image uploaded on Amazon AWS
+- Response: 206 Partial Content / Response will contain link to the image uploaded on Amazon AWS
 
 
 ### View All Recommendations
@@ -163,7 +163,7 @@ Response: 201 Created / Array of all the recommendation data
 	"followee": pk
 }
 ```
-- Resposne: 201 Created / Follow relationship JSON object
+- Response: 201 Created / Follow relationship JSON object
 
 
 ### Unfollow a User
@@ -176,103 +176,103 @@ Response: 201 Created / Array of all the recommendation data
 ### List of Followers
 > /api/myfollowers/
 - Method: GET
-- Resposne: 200 OK / Array of users following your account
+- Response: 200 OK / Array of users following your account
 
 
 ### List of Users You Are Following
 > /api/following/
 - Method: GET
-- Resposne: 200 OK / Array of users you are following
+- Response: 200 OK / Array of users you are following
 
 
 ### View User's Favorite Recommendations
 > /api/user/watchlist/recommendations/
 - Method: GET
-- Resposne:
+- Response:
 
 
 ### Add Favorites
 > /api/recommendation/int:pk/watchlist/
 - Method: POST
 - Data:
-- Resposne: 
+- Response: 
 
 
 ### Remove Favorites
 > /api/recommendation/int:pk/watchlist/
 - Method: DELETE
 - Data:
-- Resposne:
+- Response:
 
 
 ### View User's Watched List
 > /api/watchedlist/  
 - Method: GET
 - Data:
-- Resposne:
+- Response:
   
 
 ### Add to Watched List
 > /api/recommendation/<int:pk>/watchedlist/
 - Method: POST
 - Data:
-- Resposne:
+- Response:
 
 
 ### Remove from Watched List
 > /api/recommendation/<int:pk>/watchedlist/
 - Method: DELETE
 - Data:
-- Resposne:
+- Response:
   
 
 ### View Tags
 > /api/tags/
 - Method: GET
 - Data:
-- Resposne:
+- Response:
 
 
 ### Create Tag
 > /api/tags/
 - Method: POST
 - Data:
-- Resposne:
+- Response:
 
 
 ### Delete Tag
 > /api/tag/int:pk/delete/
 - Method: DELETE
 - Data:
-- Resposne:
+- Response:
 
 
 ### View All Users Recommendations
 >/api/user/int:pk/recommendations/
 - Method: GET
 - Data:
-- Resposne:
+- Response:
 
 
 ### Search All Recommendations by Title or Description
 > /api/search/recommendations/?search=   
 - Method: GET
 - Data:
-- Resposne:
+- Response:
 
 
 ### Search All Movie Recommendations by Title or Description
 >/api/search/movie/recommendations/?search= 
 - Method: GET
 - Data:
-- Resposne:
+- Response:
 
 
 ### Search All TV Show Recommendations by Title or Description
 >/api/search/tvs/recommendations/?search=  
 - Method: GET
 - Data:
-- Resposne:
+- Response:
 
 
 
@@ -289,7 +289,7 @@ This project uses [Python 3.10](https://www.python.org/).
 
 Use [pipenv](https://pypi.org/project/pipenv/) to run a virtual enviroment with all the project dependencies.
 
-Activate a vitual enviroment:
+Activate a virtual environment:
 ```bash
 pipenv shell
 ```

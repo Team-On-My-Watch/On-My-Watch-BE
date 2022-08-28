@@ -13,8 +13,8 @@ from recommendations.models import Recommendation, Comment, User, Tag, Follow
 from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer, UserSerializer
 
 
-# --------------------------------------------RECOMMENDATIONS-------------------------------------
-# view Recommendations/ add Recommendations
+# --------------------------------------------RECOMMENDATIONS---------------------------------------
+# View Recommendations GET/ Add Recommendations POST
 class RecommendationAddListView(generics.ListCreateAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
@@ -24,13 +24,13 @@ class RecommendationAddListView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-# Recommendation detail
+# Recommendation detail GET
 class RecommendationDetailView(generics.RetrieveAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
 
 
-# delete Recommendation
+# Delete Recommendation DELETE 
 class RecommendationDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
@@ -38,7 +38,7 @@ class RecommendationDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 
 # -----------------------------------------------COMMENTS------------------------------------------
-# get recommendation and post comment
+# View comments GET / Add comment POST
 class CommentAddView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
 
@@ -51,7 +51,7 @@ class CommentAddView(generics.ListCreateAPIView):
 
 
 # -----------------------------------------------FOLLOWERS------------------------------------------
-#list of followers
+# List of followers GET
 class FollowerView(generics.ListAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
@@ -61,7 +61,7 @@ class FollowerView(generics.ListAPIView):
         return self.request.user.follows_user_received.all()
 
 
-#list of users you are following
+# List of users you are following GET
 class FollowingView(generics.ListAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowingSerializer
@@ -71,7 +71,7 @@ class FollowingView(generics.ListAPIView):
         return self.request.user.follows_user_initiated.all()
 
 
-#follow a user
+# Follow a user POST
 class FollowCreateView(generics.CreateAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
@@ -89,13 +89,14 @@ class FollowCreateView(generics.CreateAPIView):
             return Response({"message": "You already follow this user."})
 
 
-#unfollow
+# Unfollow a user DELETE
 class FollowRemoveView(generics.DestroyAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
     permission_classes = [IsAuthenticated]
     
 # -----------------------------------------------WATCH LIST------------------------------------------
+# Add show/movie to watch list POST / Remove show/movie from watch list DELETE
 class AddWatchListCardView(APIView):
 
     def post(self, request, **kwargs):
@@ -113,6 +114,7 @@ class AddWatchListCardView(APIView):
         return Response(serializer.data, status=204)
 
 
+# View users watch list GET
 class UserWatchListView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
 
@@ -121,6 +123,7 @@ class UserWatchListView(generics.ListAPIView):
 
 
 # -----------------------------------------------WATCHED LIST------------------------------------------
+# Add show/movie to watched list POST / Remove show/movie from watched list DELETE
 class WatchedListView(APIView):
 
     def post(self, request, **kwargs):
@@ -138,6 +141,7 @@ class WatchedListView(APIView):
         return Response(serializer.data, status=204)
 
 
+# View users watched list GET
 class UserWatchedListView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
 
@@ -146,20 +150,19 @@ class UserWatchedListView(generics.ListAPIView):
 
 
 # --------------------------------------------------TAGS------------------------------------------
-# add tags/view all tags
+# Add tags POST / View all tags GET
 class AddTagListView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
 
-# delete tags
+# Delete tags DELETE
 class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
 # --------------------------------------------------USERS------------------------------------------
-
-# All user recommendations
+# View all users recommendations GET 
 class UserRecommendationListView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
 
@@ -170,8 +173,8 @@ class UserRecommendationListView(generics.ListAPIView):
         user = get_object_or_404(User, pk=self.kwargs.get("pk"))
         serializer.save(user=user)
 
-
-# Search Recommendation
+# --------------------------------------------------SEARCH------------------------------------------
+# Search movie recommendations GET
 class MovieSearchRecommendationView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
     filter_backends = [filters.SearchFilter]
@@ -179,7 +182,7 @@ class MovieSearchRecommendationView(generics.ListAPIView):
 
     search_fields = ['$title', '$description', 'imdbid']
 
-
+# Search tv show recommendations GET
 class TVSSearchRecommendationView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
     filter_backends = [filters.SearchFilter]
@@ -187,7 +190,7 @@ class TVSSearchRecommendationView(generics.ListAPIView):
 
     search_fields = ['$title', '$description', 'imdbid']
 
-
+# Search movie and tv show recommendations GET
 class SearchRecommendationView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
     filter_backends = [filters.SearchFilter]
@@ -196,7 +199,8 @@ class SearchRecommendationView(generics.ListAPIView):
     search_fields = ['$title', '$description', 'imdbid']
 
 
-
+# ---------------------------------------PROFILE IMAGE UPLOAD-----------------------------------------
+# Add image for user avatar PATCH
 class ImageView(APIView):
     parser_classes = [FileUploadParser]
 

@@ -88,13 +88,13 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
     - example: Content-Type image/jpeg
   - Header: Content-Disposition, Value: attachment; filename=<name.ext> 
     - example: Content-Disposition attachment; filename=selfie.jpeg
-- Respose: 206 Partial Content, Response will contain link to the image uploaded on Amazon AWS
+- Respose: 206 Partial Content / Response will contain link to the image uploaded on Amazon AWS
 
 
 ### View All Recommendations
 > /api/recommendation/
 - Method: GET
-- Response: 200 OK, Array of all recommendations
+- Response: 200 OK / Array of all recommendations
 
 
 ### Create Recommendation
@@ -116,14 +116,14 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 }
 ```
 
-Response: 201 Created
+Response: 201 Created / Array of all the recommendation data
 
 
 ### Recommendation Detail
 > /api/recommendation/int:pk/
 - Method: GET
 - The pk in the URL above identifies the recommendation for which to return details
-- Response: 200 OK, Array of details for recommendation specified in URL
+- Response: 200 OK / Array of details for recommendation specified in URL
 
 
 ### Delete Recommendation
@@ -132,6 +132,26 @@ Response: 201 Created
 - The pk in the URL above identifies the recommendation you wish to delete
 - Response: 204 No Content
 
+
+### View Comments for a Recommendation
+> /api/recommendation/int:pk/comment/
+- Method: GET
+- The pk in the URL above identifies the recommendation for which you want to see comments
+- Response: 200 OK / Array of comments for recommendation specified in URL
+
+
+### Create a Comment for a Recommendation
+> /api/recommendation/int:pk/comment/
+- Method: POST
+- Data JSON:
+
+```python
+{ 
+	"recommendation": <int/pk>,
+	"comment": "<Your comment.>"
+}
+```
+- Response: 201 Created / Array containing user id, username, recommendation pk, comment, and created at date and time
 
 ### Follow a User
 > /api/follows/
@@ -143,7 +163,7 @@ Response: 201 Created
 	"followee": pk
 }
 ```
-- Resposne: 201 Created, Follow relationship JSON object
+- Resposne: 201 Created / Follow relationship JSON object
 
 
 ### Unfollow a User
@@ -156,13 +176,13 @@ Response: 201 Created
 ### List of Followers
 > /api/myfollowers/
 - Method: GET
-- Resposne: 200 OK, Array of users following your account
+- Resposne: 200 OK / Array of users following your account
 
 
 ### List of Users You Are Following
 > /api/following/
 - Method: GET
-- Resposne: 200 OK, Array of users you are following
+- Resposne: 200 OK / Array of users you are following
 
 
 ### View User's Favorite Recommendations

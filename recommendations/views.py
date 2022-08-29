@@ -203,6 +203,5 @@ class ImageView(APIView):
     def patch(self, request, format=None):
         file = request.data['file']
         request.user.image.save(file.name, file, save=True)
-        # return Response(status=204)
         serialized_user = UserSerializer(request.user)
         return Response(serialized_user.data, status=206)

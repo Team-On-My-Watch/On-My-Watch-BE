@@ -1,12 +1,9 @@
-from http.client import HTTPResponse
-from django.http import QueryDict
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
-from recommendations import permissions
 from rest_framework import filters
 from recommendations.permissions import IsOwner
 from recommendations.models import Recommendation, Comment, User, Tag, Follow

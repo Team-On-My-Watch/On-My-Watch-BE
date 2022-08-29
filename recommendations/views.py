@@ -91,7 +91,8 @@ class FollowRemoveView(generics.DestroyAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
     permission_classes = [IsAuthenticated]
-    
+
+
 # -----------------------------------------------WATCH LIST------------------------------------------
 # Add show/movie to watch list POST / Remove show/movie from watch list DELETE
 class AddWatchListCardView(APIView):
@@ -157,6 +158,7 @@ class AddTagListView(generics.ListCreateAPIView):
 class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
 
 # --------------------------------------------------USERS------------------------------------------
 # View all users recommendations GET 

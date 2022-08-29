@@ -29,10 +29,18 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |             Tags              | /api/tag/<int:pk>/delete/                  |    DELETE    |                                 Delete Tags |
 |             Users             | /api/user/<int:pk>/recommendations/        |     GET      |              View All Users Recommendations |
 |         Search - All          | /api/search/recommendations/?search=       |     GET      |       Search All Recommendations Title/Desc |
-|     Search - Movies Only      | /api/search/movie/recommendations/?search= |     GET      | Search All Movie Recommendations Title/Desc |
-|    Search - TV Shows Only     | /api/search/tvs/recommendations/?search=   |     GET      |   Search All TV Show Recommendations Title/Desc |
 
+## Search Endpoint
 
+Base Search URL [https://onmywatch.herokuapp.com/api/recommendation/]
+
+|             Type              | URL                                        |    Method    |                                 Description |
+| :---------------------------: | :----------------------------------------- | :----------: | ------------------------------------------: |
+|         Search - User         | /api/search/recommendations/?user=         |     GET      |         Search All Recommendations by Users |
+|         Search - Medium       | /api/search/recommendations/?medium=       |     GET      |     Search All Recommendations by Moive/TVS |
+|         Search - Tag          | /api/search/recommendations/?tag=          |     GET      |          Search All Recommendations by Tags |
+|         Search                | /api/search/recommendations/?search=       |     GET      |               Search All Recommendations by |
+|         Fields to search by   | Title, Description, imdbid, Keywords, Genre, Streaming service, Reason                                   |
 
 
 ### Register

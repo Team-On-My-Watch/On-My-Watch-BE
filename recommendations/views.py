@@ -1,3 +1,5 @@
+from http.client import HTTPResponse
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -172,31 +174,26 @@ class UserRecommendationListView(generics.ListAPIView):
         user = get_object_or_404(User, pk=self.kwargs.get("pk"))
         serializer.save(user=user)
 
-# --------------------------------------------------SEARCH------------------------------------------
-# Search movie recommendations GET
-class MovieSearchRecommendationView(generics.ListAPIView):
-    serializer_class = RecommendationSerializer
-    filter_backends = [filters.SearchFilter]
-    queryset = Recommendation.objects.filter(medium="Movie")
 
-    search_fields = ['$title', '$description', 'imdbid']
-
-# Search tv show recommendations GET
-class TVSSearchRecommendationView(generics.ListAPIView):
-    serializer_class = RecommendationSerializer
-    filter_backends = [filters.SearchFilter]
-    queryset = Recommendation.objects.filter(medium="TVS")
-
-    search_fields = ['$title', '$description', 'imdbid']
-
-# Search movie and tv show recommendations GET
+# Search Recommendation
 class SearchRecommendationView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
     filter_backends = [filters.SearchFilter]
-    queryset = Recommendation.objects.all()
 
-    search_fields = ['$title', '$description', 'imdbid']
+    def get_queryset(self):
+        queryset = Recommendation.objects.all()
+        tag = self.request.query_params.get('tag')
+        medium = self.request.query_params.get('medium')
+        user = self.request.query_params.get('user')
+        if medium is not None:
+            queryset = queryset.filter(medium=medium)
+        if tag is not None:
+            queryset = queryset.filter(tag=tag)
+        if user is not None:
+            queryset = queryset.filter(user=user)
+        return queryset
 
+    search_fields = ['$title', '$description', 'imdbid', '$keywords', '$genre', '$streaming_service', '$reason']
 
 # ---------------------------------------PROFILE IMAGE UPLOAD-----------------------------------------
 # Add image for user avatar PATCH

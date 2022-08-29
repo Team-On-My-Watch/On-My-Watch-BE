@@ -28,17 +28,17 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |             Tags              | /api/tags/                                 |  GET, POST   |                       View Tags, Create Tag |
 |             Tags              | /api/tag/<int:pk>/delete/                  |    DELETE    |                                 Delete Tags |
 |             Users             | /api/user/<int:pk>/recommendations/        |     GET      |              View All Users Recommendations |
-|         Search - All          | /api/search/recommendation/?search=        |     GET      |       Search All Recommendations Title/Desc |
+|         Search - All          | /api/search/recommendations/?search=       |     GET      |       Search All Recommendations Title/Desc |
 
 ## Search Endpoint
 
 Base Search URL [https://onmywatch.herokuapp.com/api/recommendation/]
 
-|         Search - User         | /api/search/recommendation/?user=         |     GET      |         Search All Recommendations by Users |
-|         Search - Medium       | /api/search/recommendation/?medium=       |     GET      |     Search All Recommendations by Moive/TVS |
-|         Search - Tag          | /api/search/recommendation/?tag=          |     GET      |          Search All Recommendations by Tags |
-|         Search                | /api/search/recommendation/?search=       |     GET      |               Search All Recommendations by |
-|                                Title, Description, imdbid, Keywords, Genre, Streaming service, Reason                                  |
+|         Search - User         | /api/search/recommendations/?user=         |     GET      |         Search All Recommendations by Users |
+|         Search - Medium       | /api/search/recommendations/?medium=       |     GET      |     Search All Recommendations by Moive/TVS |
+|         Search - Tag          | /api/search/recommendations/?tag=          |     GET      |          Search All Recommendations by Tags |
+|         Search                | /api/search/recommendations/?search=       |     GET      |               Search All Recommendations by |
+|                                Title, Description, imdbid, Keywords, Genre, Streaming service, Reason                                   |
 
 
 ### Register

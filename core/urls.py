@@ -46,8 +46,6 @@ urlpatterns = [
     # Users
     path('api/user/<int:pk>/recommendations/', views.UserRecommendationListView.as_view()),
     # Search
-    # path('api/search/movie/recommendations/', views.MovieSearchRecommendationView.as_view()),
-    # path('api/search/tvs/recommendations/', views.TVSSearchRecommendationView.as_view()),
     path('api/search/recommendations/', views.SearchRecommendationView.as_view()),
     # Image Upload
     path('api/upload/', views.ImageView.as_view()),

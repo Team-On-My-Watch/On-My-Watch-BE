@@ -175,6 +175,7 @@ class UserRecommendationListView(generics.ListAPIView):
         serializer.save(user=user)
 
 
+# --------------------------------------------SEARCH------------------------------------------------
 # Search Recommendation
 class SearchRecommendationView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
@@ -194,6 +195,7 @@ class SearchRecommendationView(generics.ListAPIView):
         return queryset
 
     search_fields = ['$title', '$description', 'imdbid', '$keywords', '$genre', '$streaming_service', '$reason']
+
 
 # ---------------------------------------PROFILE IMAGE UPLOAD-----------------------------------------
 # Add image for user avatar PATCH

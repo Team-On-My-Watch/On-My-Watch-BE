@@ -27,7 +27,7 @@ class Tag(BaseModel):
 class Recommendation(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recommendations')
     reason = models.TextField(max_length=2500)
-    saved_by = models.ManyToManyField(User, related_name='saves', blank=True)
+    saved_by = models.ManyToManyField(User, related_name='saves')
     imdbid = models.TextField(max_length=100)
     title = models.CharField(max_length=125)
     medium = models.CharField(max_length=255)

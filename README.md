@@ -34,11 +34,13 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 
 Base Search URL [https://onmywatch.herokuapp.com/api/recommendation/]
 
+|             Type              | URL                                        |    Method    |                                 Description |
+| :---------------------------: | :----------------------------------------- | :----------: | ------------------------------------------: |
 |         Search - User         | /api/search/recommendations/?user=         |     GET      |         Search All Recommendations by Users |
 |         Search - Medium       | /api/search/recommendations/?medium=       |     GET      |     Search All Recommendations by Moive/TVS |
 |         Search - Tag          | /api/search/recommendations/?tag=          |     GET      |          Search All Recommendations by Tags |
 |         Search                | /api/search/recommendations/?search=       |     GET      |               Search All Recommendations by |
-|                                Title, Description, imdbid, Keywords, Genre, Streaming service, Reason                                   |
+|         Fields to search by   | Title, Description, imdbid, Keywords, Genre, Streaming service, Reason                                   |
 
 
 ### Register

@@ -9,7 +9,6 @@ from rest_framework.parsers import FileUploadParser
 from recommendations import permissions
 from rest_framework import filters
 from recommendations.permissions import IsOwner
-from django_filters.rest_framework import DjangoFilterBackend
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
 from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer, UserSerializer
 

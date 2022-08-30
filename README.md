@@ -216,7 +216,7 @@ Response: 201 Created / Array of all the recommendation data
 ### View User's Watched List
 > /api/watchedlist/  
 - Method: GET
-- Response: 200 OK / Array of all shows on user's watched lsit.
+- Response: 200 OK / Array of all shows on user's watched list.
   
 
 ### Add to Watched List
@@ -257,16 +257,8 @@ Response: 201 Created / Array of all the recommendation data
 ### View All Users Recommendations
 >/api/user/int:pk/recommendations/
 - Method: GET
-- Data:
-- Response:
-
-
-### Search 
-> /api/search/recommendations/?search=   
-- Method: GET
-- Data:
-- Response:
-
+- Data: the pk in the URL above refers to the pk of the user from whom you wish to see recommendations.
+- Response: 200 OK / Array of all recommendations by the user
 
 
 

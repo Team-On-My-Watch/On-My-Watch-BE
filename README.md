@@ -30,18 +30,6 @@ Base URL: [https://onmywatch.herokuapp.com](https://onmywatch.herokuapp.com)
 |             Users             | /api/user/<int:pk>/recommendations/       |     GET      |             View All Users Recommendations |
 |         Search - All          | /api/search/recommendations/?search=      |     GET      |      Search All Recommendations Title/Desc |
 
-## Search Endpoint
-
-Base Search URL [https://onmywatch.herokuapp.com/api/recommendation/]
-
-|        Type         | URL                                                                    | Method |                             Description |
-| :-----------------: | :--------------------------------------------------------------------- | :----: | --------------------------------------: |
-|    Search - User    | /api/search/recommendations/?user=                                     |  GET   |     Search All Recommendations by Users |
-|   Search - Medium   | /api/search/recommendations/?medium=                                   |  GET   | Search All Recommendations by Movie/TVS |
-|    Search - Tag     | /api/search/recommendations/?tag=                                      |  GET   |      Search All Recommendations by Tags |
-|       Search        | /api/search/recommendations/?search=                                   |  GET   |           Search All Recommendations by |
-| Fields to search by | Title, Description, imdbid, Keywords, Genre, Streaming service, Reason |
-
 
 ### Register
 > /auth/users/
@@ -261,9 +249,15 @@ Response: 201 Created / Array of all the recommendation data
 ### View All Users Recommendations
 >/api/user/int:pk/recommendations/
 - Method: GET
-- Data: the pk in the URL above refers to the pk of the user from whom you wish to see recommendations
+- Data: The pk in the URL above refers to the pk of the user from whom you wish to see recommendations
 - Response: 200 OK / Array of all recommendations by the user
 
+
+### Search Recommendations
+>/api/search/recommendations/?
+- Method: GET
+- Data: After '?' type 'search=' to search the Title, Description, imdbid, Keywords, Genre, Streaming service, or Reason. To search tag do 'tag='. To search medium do 'medium='. To search user do 'user='.
+- Response: 200 OK / Array of recommendations by user's search parameters
 
 
 # Running a local PostgreSQL database

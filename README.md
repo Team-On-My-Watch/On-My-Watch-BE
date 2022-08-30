@@ -262,8 +262,6 @@ Response: 201 Created / Array of all the recommendation data
 
 
 
-
-
 # Running a local PostgreSQL database
 
 ### Clone the API repository

@@ -216,23 +216,22 @@ Response: 201 Created / Array of all the recommendation data
 ### View User's Watched List
 > /api/watchedlist/  
 - Method: GET
-- Data:
-- Response:
+- Response: 200 OK / Array of all shows on user's watched lsit.
   
 
 ### Add to Watched List
-> /api/recommendation/<int:pk>/watchedlist/
+> /api/recommendation/int:pk/watchedlist/
 - Method: POST
-- Data:
-- Response:
+- Data: the pk in the URL above refers to the pk of the show to add to the watched list.
+- Response: 201 Created / Array containing user and show data
 
 
 ### Remove from Watched List
-> /api/recommendation/<int:pk>/watchedlist/
+> /api/recommendation/int:pk/watchedlist/
 - Method: DELETE
-- Data:
-- Response:
-  
+- Data: The pk in the URL above refers to the pk of the show to be removed from watched list. 
+- Response: 204 No Content
+
 
 ### View Tags
 > /api/tags/

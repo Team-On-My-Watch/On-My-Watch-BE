@@ -189,7 +189,7 @@ class SearchRecommendationView(generics.ListAPIView):
         if tag is not None:
             queryset = queryset.filter(tag=tag)
         if user is not None:
-            queryset = queryset.filter(user=user)
+            queryset = queryset.filter(user_id__username=user)
         return queryset
 
     search_fields = ['$title', '$description', 'imdbid', '$keywords', '$genre', '$streaming_service', '$reason']

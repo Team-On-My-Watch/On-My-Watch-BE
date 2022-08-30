@@ -282,7 +282,7 @@ Activate a virtual environment:
 ```bash
 pipenv shell
 ```
-git 
+
 Install dependencies:
 ```bash
 pipenv install

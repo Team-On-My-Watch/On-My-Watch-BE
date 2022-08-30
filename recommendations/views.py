@@ -1,15 +1,11 @@
-from http.client import HTTPResponse
-from django.http import QueryDict
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
-from recommendations import permissions
 from rest_framework import filters
 from recommendations.permissions import IsOwner
-from django_filters.rest_framework import DjangoFilterBackend
 from recommendations.models import Recommendation, Comment, User, Tag, Follow
 from .serializers import CommentSerializer, RecommendationSerializer, TagSerializer, FollowSerializer, FollowingSerializer, FollowUnfollowSerializer, UserSerializer
 
@@ -95,7 +91,8 @@ class FollowRemoveView(generics.DestroyAPIView):
     queryset = Follow.objects.all()
     serializer_class = FollowUnfollowSerializer
     permission_classes = [IsAuthenticated]
-    
+
+
 # -----------------------------------------------WATCH LIST------------------------------------------
 # Add show/movie to watch list POST / Remove show/movie from watch list DELETE
 class AddWatchListCardView(APIView):
@@ -162,6 +159,7 @@ class TagDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+
 # --------------------------------------------------USERS------------------------------------------
 # View all users recommendations GET 
 class UserRecommendationListView(generics.ListAPIView):
@@ -175,6 +173,7 @@ class UserRecommendationListView(generics.ListAPIView):
         serializer.save(user=user)
 
 
+# --------------------------------------------SEARCH------------------------------------------------
 # Search Recommendation
 class SearchRecommendationView(generics.ListAPIView):
     serializer_class = RecommendationSerializer
@@ -195,6 +194,7 @@ class SearchRecommendationView(generics.ListAPIView):
 
     search_fields = ['$title', '$description', 'imdbid', '$keywords', '$genre', '$streaming_service', '$reason']
 
+
 # ---------------------------------------PROFILE IMAGE UPLOAD-----------------------------------------
 # Add image for user avatar PATCH
 class ImageView(APIView):
@@ -203,6 +203,5 @@ class ImageView(APIView):
     def patch(self, request, format=None):
         file = request.data['file']
         request.user.image.save(file.name, file, save=True)
-        # return Response(status=204)
         serialized_user = UserSerializer(request.user)
         return Response(serialized_user.data, status=206)

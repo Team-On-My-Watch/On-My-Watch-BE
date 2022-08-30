@@ -193,46 +193,45 @@ Response: 201 Created / Array of all the recommendation data
 - Response: 200 OK / Array of users you are following
 
 
-### View User's Favorite Recommendations
+### View User's Watch List 
 > /api/user/watchlist/recommendations/
 - Method: GET
-- Response:
+- Response: 200 OK / Array of all shows on user's watch lsit.
 
 
-### Add Favorites
+### Add Show to Watch List
 > /api/recommendation/int:pk/watchlist/
 - Method: POST
-- Data:
-- Response: 
+- Data: the pk in the URL above refers to the pk of the show to add to the watch list.
+- Response: 201 Created / Array containing user and show data
 
 
-### Remove Favorites
+### Remove Show from Watch List
 > /api/recommendation/int:pk/watchlist/
 - Method: DELETE
-- Data:
-- Response:
+- Data: The pk in the URL above refers to the pk of the show to be removed from watch list. 
+- Response: 204 No Content
 
 
 ### View User's Watched List
 > /api/watchedlist/  
 - Method: GET
-- Data:
-- Response:
+- Response: 200 OK / Array of all shows on user's watched list.
   
 
 ### Add to Watched List
-> /api/recommendation/<int:pk>/watchedlist/
+> /api/recommendation/int:pk/watchedlist/
 - Method: POST
-- Data:
-- Response:
+- Data: the pk in the URL above refers to the pk of the show to add to the watched list.
+- Response: 201 Created / Array containing user and show data
 
 
 ### Remove from Watched List
-> /api/recommendation/<int:pk>/watchedlist/
+> /api/recommendation/int:pk/watchedlist/
 - Method: DELETE
-- Data:
-- Response:
-  
+- Data: The pk in the URL above refers to the pk of the show to be removed from watched list. 
+- Response: 204 No Content
+
 
 ### View Tags
 > /api/tags/
@@ -258,30 +257,8 @@ Response: 201 Created / Array of all the recommendation data
 ### View All Users Recommendations
 >/api/user/int:pk/recommendations/
 - Method: GET
-- Data:
-- Response:
-
-
-### Search All Recommendations by Title or Description
-> /api/search/recommendations/?search=   
-- Method: GET
-- Data:
-- Response:
-
-
-### Search All Movie Recommendations by Title or Description
->/api/search/movie/recommendations/?search= 
-- Method: GET
-- Data:
-- Response:
-
-
-### Search All TV Show Recommendations by Title or Description
->/api/search/tvs/recommendations/?search=  
-- Method: GET
-- Data:
-- Response:
-
+- Data: the pk in the URL above refers to the pk of the user from whom you wish to see recommendations.
+- Response: 200 OK / Array of all recommendations by the user
 
 
 

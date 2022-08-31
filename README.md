@@ -282,7 +282,7 @@ Install dependencies:
 pipenv install
 ```
 
-### Create a local PostgreSQL database
+### Create a Local PostgreSQL Database
 This project uses [PostgreSQL 14.4](https://www.postgresql.org/).
 
 Install PostgreSQL:
